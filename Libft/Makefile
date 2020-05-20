@@ -6,7 +6,7 @@
 #    By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/24 10:59:55 by lmartins          #+#    #+#              #
-#    Updated: 2020/05/17 00:10:04 by lmartins         ###   ########.fr        #
+#    Updated: 2020/05/20 06:43:03 by lmartins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,25 +20,28 @@ ft_substr.c ft_tolower.c ft_toupper.c ft_lstadd_back.c ft_lstadd_front.c \
 ft_lstclear.c ft_lstdelone.c ft_lstiter.c ft_lstlast.c ft_lstmap.c \
 ft_lstnew.c ft_lstsize.c
 
-OBJS = $(FILES:.c=.o)
+OBJ_DIR = obj/
+OBJ_FILES = $(FILES:.c=.o)
+OBJ = $(addprefix $(OBJ_DIR), $(OBJ_FILES))
 
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CC = gcc -Wall -Wextra -Werror
 NAME = libft.a
 
 INCLUDES = -I./
 
-RM = rm -f
+RM = rm -rf
 
 all:	$(NAME)
 
-$(NAME):
-	@$(CC) $(CFLAGS) $(INCLUDES) -c $(FILES)
-	@ar rc $(NAME) $(OBJS)
-	@ranlib $(NAME)
+$(NAME): obj
+	@ar rcs $(NAME) $(OBJ)
 
+obj: $(OBJ_FILES)
+	@mkdir -p $(OBJ_DIR)
+	@mv $(OBJ_FILES) $(OBJ_DIR)
+	
 clean:
-	@$(RM) $(OBJS) $(OBJS_BONUS)
+	@$(RM) $(OBJ_DIR)
 
 lclean: clean
 	@$(RM) $(LIB_NAME)
@@ -49,4 +52,4 @@ fclean:	clean lclean
 re:	fclean all
 
 .c.o:
-	@$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
+	@$(CC) -c $< $(INCLUDES) -o $(<:.c=.o)

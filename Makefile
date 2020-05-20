@@ -5,48 +5,53 @@
 #                                                     +:+ +:+         +:+      #
 #    By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2020/05/17 00:57:52 by lmartins          #+#    #+#              #
-#    Updated: 2020/05/17 01:04:02 by lmartins         ###   ########.fr        #
+#    Created: 2020/01/24 10:59:55 by lmartins          #+#    #+#              #
+#    Updated: 2020/05/20 07:06:02 by lmartins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-FILES = ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c \
-ft_isascii.c ft_isdigit.c ft_isprint.c ft_itoa.c ft_memccpy.c \
-ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memmove.c ft_memset.c \
-ft_putchar_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_putstr_fd.c ft_split.c \
-ft_strchr.c ft_strdup.c ft_strjoin.c ft_strlcat.c ft_strlcpy.c ft_strlen.c \
-ft_strmapi.c ft_strncmp.c ft_strnstr.c ft_strrchr.c ft_strtrim.c \
-ft_substr.c ft_tolower.c ft_toupper.c ft_lstadd_back.c ft_lstadd_front.c \
-ft_lstclear.c ft_lstdelone.c ft_lstiter.c ft_lstlast.c ft_lstmap.c \
-ft_lstnew.c ft_lstsize.c
+SRC_DIR = src/
+SRC_FILES = ft_printf.c
+SRC = $(addprefix $(SRC_DIR), $(SRC_FILES))
 
-OBJS = $(FILES:.c=.o)
+OBJ_DIR = src/obj/
+OBJ_FILES = $(SRC:.c=.o)
+OBJ = $(addprefix $(OBJ_DIR), $(OBJ_FILES))
 
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CC = gcc -Wall -Wextra -Werror
+
 NAME = libftprintf.a
 
-INCLUDES = -I./
+LIBS = Libft/libft.a
 
-RM = rm -f
+INCLUDES = -I./ -I../Libft/libft.h
+
+RM = rm -rf
 
 all:	$(NAME)
 
-$(NAME):
-	@$(CC) $(CFLAGS) $(INCLUDES) -c $(FILES)
-	@ar rc $(NAME) $(OBJS)
-	@ranlib $(NAME)
+$(NAME): obj
+	@make -sC Libft/
+	@mv $(LIBS) $(SRC_DIR)$(NAME)
+#	@ar rcs $(NAME) $(OBJ)
 
+obj: $(OBJ_FILES)
+	@mkdir -p $(OBJ_DIR)
+	@mv $(OBJ_FILES) $(OBJ_DIR)
+	
 clean:
-	@$(RM) $(OBJS) $(OBJS_BONUS)
+	@make -sC Libft/ clean
+	@$(RM) $(OBJ_DIR)
 
 lclean: clean
+	@make -sC Libft/ lclean
 	@$(RM) $(LIB_NAME)
 
 fclean:	clean lclean
-	@$(RM) $(NAME)
+	@make -sC Libft/ fclean
+	@$(RM) $(SRC_DIR)$(NAME)
 	
 re:	fclean all
 
 .c.o:
-	@$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
+	@$(CC) -c $< $(INCLUDES) -o $(<:.c=.o)
