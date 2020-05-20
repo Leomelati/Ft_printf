@@ -6,7 +6,7 @@
 #    By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/24 10:59:55 by lmartins          #+#    #+#              #
-#    Updated: 2020/05/20 07:27:53 by lmartins         ###   ########.fr        #
+#    Updated: 2020/05/20 07:31:20 by lmartins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ clean:
 
 lclean: clean
 	@make -sC Libft/ lclean
-	@$(RM) $(LIB_NAME)
+	@$(RM) $(SRC_DIR)$(NAME)
 
 fclean:	clean lclean
 	@make -sC Libft/ fclean
