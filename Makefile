@@ -6,7 +6,7 @@
 #    By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/24 10:59:55 by lmartins          #+#    #+#              #
-#    Updated: 2020/05/20 07:31:20 by lmartins         ###   ########.fr        #
+#    Updated: 2020/05/20 07:46:46 by lmartins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,8 +32,8 @@ all:	$(NAME)
 
 $(NAME): obj
 	@make -sC Libft/
-	@mv $(LIBS) $(SRC_DIR)$(NAME)
-	@ar rcs $(SRC_DIR)$(NAME) $(OBJ)
+	@mv $(LIBS) $(NAME)
+	@ar rcs $(NAME) $(OBJ)
 
 obj: $(OBJ_FILES)
 	@mkdir -p $(OBJ_DIR)
@@ -45,11 +45,11 @@ clean:
 
 lclean: clean
 	@make -sC Libft/ lclean
-	@$(RM) $(SRC_DIR)$(NAME)
+	@$(RM) $(NAME)
 
 fclean:	clean lclean
 	@make -sC Libft/ fclean
-	@$(RM) $(SRC_DIR)$(NAME)
+	@$(RM) $(NAME)
 	
 re:	fclean all
 
