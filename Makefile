@@ -6,7 +6,7 @@
 #    By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/24 10:59:55 by lmartins          #+#    #+#              #
-#    Updated: 2020/05/20 07:06:02 by lmartins         ###   ########.fr        #
+#    Updated: 2020/05/20 07:27:53 by lmartins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ SRC = $(addprefix $(SRC_DIR), $(SRC_FILES))
 
 OBJ_DIR = src/obj/
 OBJ_FILES = $(SRC:.c=.o)
-OBJ = $(addprefix $(OBJ_DIR), $(OBJ_FILES))
+OBJ = $(addprefix $(OBJ_DIR), $(notdir $(OBJ_FILES)))
 
 CC = gcc -Wall -Wextra -Werror
 
@@ -33,7 +33,7 @@ all:	$(NAME)
 $(NAME): obj
 	@make -sC Libft/
 	@mv $(LIBS) $(SRC_DIR)$(NAME)
-#	@ar rcs $(NAME) $(OBJ)
+	@ar rcs $(SRC_DIR)$(NAME) $(OBJ)
 
 obj: $(OBJ_FILES)
 	@mkdir -p $(OBJ_DIR)
