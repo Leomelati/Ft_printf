@@ -7,7 +7,7 @@ One of the first projects is the recoding of the Printf function because 42 Stud
 - It will manage the following conversions:
 
 | Conversion  | Description                                |
-|:-----------:|:------------------------------------------:|
+|-------------|------------------------------------------  |
 | c           | Character                                  |
 | s           | String of characters                       |
 | p(WIP)           | Pointer Address                            |
@@ -21,7 +21,7 @@ One of the first projects is the recoding of the Printf function because 42 Stud
 - It will manage any combination of the following flags:
 
 | Flags  | Description                                                   |
-|:------:|:-------------------------------------------------------------:|
+|--------|-------------------------------------------------------------  |
 | -(WIP)      | Left-justify within the given field width                |
 | 0(WIP)      | Left-pads the number with zeroes (0) instead of spaces   |
 | +(WIP)      | Preceed the result with a "+" for positive numbers       |
