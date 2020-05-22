@@ -14,8 +14,8 @@ One of the first projects is the recoding of the Printf function because 42 Stud
 | d           | Signed decimal integer                     |
 | i           | Signed decimal integer                     |
 | u           | Unsigned decimal integer                   |
-| x(WIP)           | Unsigned hexadecimal integer               |
-| X(WIP)           | Unsigned hexadecimal integer (uppercase)   |
+| x           | Unsigned hexadecimal integer               |
+| X           | Unsigned hexadecimal integer (uppercase)   |
 | %           | Two followed "%" will write a "%"          |
 
 - It will manage any combination of the following flags:
