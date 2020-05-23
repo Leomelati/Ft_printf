@@ -6,15 +6,15 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/16 23:37:09 by user42            #+#    #+#             */
-/*   Updated: 2020/05/22 04:34:32 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/05/23 07:07:59 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_putnbr_hex_lower(int nbr)
+void	ft_putnbr_hex_lower(size_t nbr)
 {
-	int mod;
+	size_t mod;
 
 	if (nbr > 0)
 	{
@@ -22,43 +22,35 @@ void	ft_putnbr_hex_lower(int nbr)
 		if (mod < 10)
 			mod += '0';
 		else
-			mod += 87;
-		ft_putnbr_hex(nbr / 16);
+			mod += ('a' - 10);
+		ft_putnbr_hex_lower(nbr / 16);
 		write(1, &mod, 1);
 	}
 }
 
 int		check_flag(char *letter, va_list ap)
 {
+	char *ptr;
+
 	if (*letter == 'c')
 	{
-		char *ptr = va_arg(ap, char *);
+		ptr = va_arg(ap, char *);
 		write(1, &ptr, 1);
 	}
 	else if (*letter == 's')
-	{
-		char *ptr = va_arg(ap, char *);
-		ft_putstr_fd(ptr, 1);
-	}
+		ft_putstr_fd((char *)va_arg(ap, char *), 1);
 	else if ((*letter == 'd') | (*letter == 'i'))
-	{
-		int ptr = va_arg(ap, int);
-		ft_putnbr_fd(ptr, 1);
-	}
+		ft_putnbr_fd((int)va_arg(ap, int), 1);
 	else if (*letter == 'u')
-	{
-		unsigned int ptr = va_arg(ap, unsigned int);
-		ft_putnbr_uns_fd(ptr, 1);
-	}
+		ft_putnbr_uns_fd((unsigned int)va_arg(ap, unsigned int), 1);
 	else if (*letter == 'x')
-	{
-		int ptr = va_arg(ap, int);
-		ft_putnbr_hex_lower(ptr);
-	}
+		ft_putnbr_hex_lower((int)va_arg(ap, int));
 	else if (*letter == 'X')
+		ft_putnbr_hex((int)va_arg(ap, int));
+	else if (*letter == 'p')
 	{
-		int ptr = va_arg(ap, int);
-		ft_putnbr_hex(ptr);
+		ft_putstr_fd("0x", 1);
+		ft_putnbr_hex_lower((size_t)va_arg(ap, void *));
 	}
 	else if (*letter == '%')
 		write(1, "%%", 1);

@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/22 01:51:16 by lmartins          #+#    #+#             */
-/*   Updated: 2020/05/22 03:40:36 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/05/23 06:57:06 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 ** Converts an integer of base 10 into a hexadecimal base and prints the result.
 */
 
-void	ft_putnbr_hex(int nbr)
+void	ft_putnbr_hex(size_t nbr)
 {
-	int mod;
+	size_t mod;
 
 	if (nbr > 0)
 	{
