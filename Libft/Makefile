@@ -6,7 +6,7 @@
 #    By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/24 10:59:55 by lmartins          #+#    #+#              #
-#    Updated: 2020/05/22 03:35:02 by lmartins         ###   ########.fr        #
+#    Updated: 2020/05/27 06:16:03 by lmartins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ $(NAME): obj
 obj: $(OBJ_FILES)
 	@mkdir -p $(OBJ_DIR)
 	@mv $(OBJ_FILES) $(OBJ_DIR)
-	
+
 clean:
 	@$(RM) $(OBJ_DIR)
 

@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/16 23:37:09 by user42            #+#    #+#             */
-/*   Updated: 2020/05/23 07:07:59 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/05/27 07:08:28 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,45 +28,119 @@ void	ft_putnbr_hex_lower(size_t nbr)
 	}
 }
 
-int		check_flag(char *letter, va_list ap)
+int	flag_zero_int(unsigned int size, va_list ap)
+{
+	int digits;
+	int nbr;
+	int temp;
+
+	nbr = (int)va_arg(ap, int);
+	temp = nbr;
+	digits = 0;
+	while (temp != 0)
+	{
+		temp /= 10;
+		digits++;
+	}
+	size -= digits;
+	while (size != 0)
+	{
+		write(1, "0", 1);
+		size--;
+	}
+	ft_putnbr_fd(nbr, 1);
+	return(++digits);
+}
+
+int	flag_zero_uns(unsigned int size, va_list ap)
+{
+	int digits;
+	unsigned int nbr;
+	unsigned int temp;
+
+	nbr = (unsigned int)va_arg(ap, int);
+	temp = nbr;
+	digits = 0;
+	while (temp != 0)
+	{
+		temp /= 10;
+		digits++;
+	}
+	size -= digits;
+	while (size != 0)
+	{
+		write(1, "0", 1);
+		size--;
+	}
+	ft_putnbr_uns_fd(nbr, 1);
+	return(++digits);
+}
+
+// Flag "0" funciona com:
+// d
+// i
+// u
+// x
+// X
+
+void	flag_zero(char *format, va_list ap)
+{
+	unsigned int size;
+
+	size = ft_atoi(format);
+	while(ft_isdigit(*format) == 1)
+		format++;
+	if ((*format == 'd') | (*format == 'i'))
+		flag_zero_int(size, ap);
+	else if (*format == 'u')
+		flag_zero_uns(size, ap);
+}
+
+void	check_flag(char *format, va_list ap)
+{
+	if (*format == '0')
+		flag_zero(format, ap);
+}
+
+void	check_conversion(char *format, va_list ap)
 {
 	char *ptr;
 
-	if (*letter == 'c')
+	if (*format == 'c')
 	{
 		ptr = va_arg(ap, char *);
 		write(1, &ptr, 1);
 	}
-	else if (*letter == 's')
+	else if (*format == 's')
 		ft_putstr_fd((char *)va_arg(ap, char *), 1);
-	else if ((*letter == 'd') | (*letter == 'i'))
+	else if ((*format == 'd') | (*format == 'i'))
 		ft_putnbr_fd((int)va_arg(ap, int), 1);
-	else if (*letter == 'u')
+	else if (*format == 'u')
 		ft_putnbr_uns_fd((unsigned int)va_arg(ap, unsigned int), 1);
-	else if (*letter == 'x')
+	else if (*format == 'x')
 		ft_putnbr_hex_lower((int)va_arg(ap, int));
-	else if (*letter == 'X')
+	else if (*format == 'X')
 		ft_putnbr_hex((int)va_arg(ap, int));
-	else if (*letter == 'p')
+	else if (*format == 'p')
 	{
 		ft_putstr_fd("0x", 1);
 		ft_putnbr_hex_lower((size_t)va_arg(ap, void *));
 	}
-	else if (*letter == '%')
+	else if (*format == '%')
 		write(1, "%%", 1);
-	return (1);
 }
 
 int		ft_printf(const char *format, ...)
 {
 	va_list ap;
-
+	
 	va_start(ap, format);
 	while (*format != '\0')
 	{
 		if (*format == '%')
 		{
 			format++;
+			check_conversion((char *)format, ap);
 			check_flag((char *)format, ap);
 		}
 		else
