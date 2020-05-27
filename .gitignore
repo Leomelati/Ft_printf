@@ -6,3 +6,4 @@
 *.a
 .vscode
 README.md
+*.gch

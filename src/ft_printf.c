@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/16 23:37:09 by user42            #+#    #+#             */
-/*   Updated: 2020/05/27 07:08:28 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/05/27 08:04:45 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_putnbr_hex_lower(size_t nbr)
 
 int	flag_zero_int(unsigned int size, va_list ap)
 {
-	int digits;
+	unsigned int digits;
 	int nbr;
 	int temp;
 
@@ -42,19 +42,28 @@ int	flag_zero_int(unsigned int size, va_list ap)
 		temp /= 10;
 		digits++;
 	}
-	size -= digits;
-	while (size != 0)
+	if (size < digits)
+		size = digits;
+	if (nbr < 0)
+	{
+		write(1, "-", 1);
+		digits++;
+	}
+	while ((size - digits) != 0)
 	{
 		write(1, "0", 1);
 		size--;
 	}
-	ft_putnbr_fd(nbr, 1);
+	if (nbr < 0)
+		ft_putnbr_fd((unsigned int)nbr * -1, 1);
+	else
+		ft_putnbr_fd(nbr, 1);
 	return(++digits);
 }
 
 int	flag_zero_uns(unsigned int size, va_list ap)
 {
-	int digits;
+	unsigned int digits;
 	unsigned int nbr;
 	unsigned int temp;
 
@@ -66,8 +75,9 @@ int	flag_zero_uns(unsigned int size, va_list ap)
 		temp /= 10;
 		digits++;
 	}
-	size -= digits;
-	while (size != 0)
+	if (size < digits)
+		size = digits;
+	while ((size - digits) != 0)
 	{
 		write(1, "0", 1);
 		size--;
@@ -83,7 +93,7 @@ int	flag_zero_uns(unsigned int size, va_list ap)
 // x
 // X
 
-void	flag_zero(char *format, va_list ap)
+char	*flag_zero(char *format, va_list ap)
 {
 	unsigned int size;
 
@@ -94,12 +104,14 @@ void	flag_zero(char *format, va_list ap)
 		flag_zero_int(size, ap);
 	else if (*format == 'u')
 		flag_zero_uns(size, ap);
+	return (format);
 }
 
-void	check_flag(char *format, va_list ap)
+char	*check_flag(char *format, va_list ap)
 {
 	if (*format == '0')
-		flag_zero(format, ap);
+		format = flag_zero(format, ap);
+	return (format);
 }
 
 void	check_conversion(char *format, va_list ap)
@@ -133,19 +145,24 @@ void	check_conversion(char *format, va_list ap)
 int		ft_printf(const char *format, ...)
 {
 	va_list ap;
+	char *cformat;
+	unsigned int i;
 	
 	va_start(ap, format);
-	while (*format != '\0')
+	cformat = (char *)format;
+	i = 0;
+	while (cformat[i] != '\0')
 	{
-		if (*format == '%')
+		if (cformat[i] == '%')
 		{
-			format++;
-			check_conversion((char *)format, ap);
-			check_flag((char *)format, ap);
+			i++;
+			check_conversion(&cformat[i], ap);
+			cformat = check_flag(&cformat[i], ap);
+			i = 0;
 		}
 		else
-			write(1, format, 1);
-		format++;
+			write(1, &cformat[i], 1);
+		i++;
 	}
 	va_end(ap);
 	return (1);

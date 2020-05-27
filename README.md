@@ -23,7 +23,7 @@ One of the first projects is the recoding of the Printf function because 42 Stud
 | Flags  | Description                                                   |
 |--------|-------------------------------------------------------------  |
 | -(WIP)      | Left-justify within the given field width                |
-| 0(WIP)      | Left-pads the number with zeroes (0) instead of spaces   |
+| 0      | Left-pads the number with zeroes (0) instead of spaces   |
 | +(WIP)      | Preceed the result with a "+" for positive numbers       |
 | #(WIP)      | Alternate input method for placeholder                   |
 

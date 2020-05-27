@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/21 03:11:04 by lmartins          #+#    #+#             */
-/*   Updated: 2020/05/27 06:36:46 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/05/27 08:05:47 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ int main()
 	// ft_printf("Ft_Printf: Testando 2%%\n");
 	// printf("Printf: Testando 2%%\n");
 	// ft_printf("\n");
-	ft_printf("Ft_Printf: %015u \n", unsigned_test);
-	printf("Printf: %015u \n", unsigned_test);
+	ft_printf("Ft_Printf: %010u \n", unsigned_test);
+	printf("Printf: %010u \n", unsigned_test);
 	ft_printf("\n");
 	// ft_printf("Ft_Printf: Testando as flags C: %c | S: %s | P: %p | D: %d | I: %i | U: %u | x: %x | X: %X | 2%%\n", char_test, string_test, string_test, int_test, int_test, unsigned_test, int_test, int_test);
 	// printf("Printf: Testando as flags C: %c | S: %s | P: %p | D: %d | I: %i | U: %u | x: %x | X: %X | 2%%\n", char_test, string_test, string_test, int_test, int_test, unsigned_test, int_test, int_test);
