@@ -10,7 +10,7 @@ One of the first projects is the recoding of the Printf function because 42 Stud
 |-------------|------------------------------------------  |
 | c           | Character                                  |
 | s           | String of characters                       |
-| p(WIP)           | Pointer Address                            |
+| p           | Pointer Address                            |
 | d           | Signed decimal integer                     |
 | i           | Signed decimal integer                     |
 | u           | Unsigned decimal integer                   |
