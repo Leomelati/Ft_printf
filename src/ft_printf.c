@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/16 23:37:09 by user42            #+#    #+#             */
-/*   Updated: 2020/05/27 08:04:45 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/05/28 14:33:35 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_putnbr_hex_lower(size_t nbr)
 {
-	size_t mod;
+	size_t	mod;
 
 	if (nbr > 0)
 	{
@@ -28,11 +28,61 @@ void	ft_putnbr_hex_lower(size_t nbr)
 	}
 }
 
-int	flag_zero_int(unsigned int size, va_list ap)
+int		flag_zero_hex_lower(unsigned int size, va_list ap)
 {
-	unsigned int digits;
-	int nbr;
-	int temp;
+	int				nbr;
+	int				temp;
+	unsigned int	digits;
+
+	nbr = (int)va_arg(ap, int);
+	temp = nbr;
+	digits = 0;
+	while (temp > 0)
+	{
+		temp /= 16;
+		digits++;
+	}
+	if (size < digits)
+		size = digits;
+	while ((size - digits) != 0)
+	{
+		write(1, "0", 1);
+		size--;
+	}
+	ft_putnbr_hex_lower(nbr);
+	return (++digits);
+}
+
+int		flag_zero_hex(unsigned int size, va_list ap)
+{
+	int				nbr;
+	int				temp;
+	unsigned int	digits;
+
+	nbr = (int)va_arg(ap, int);
+	temp = nbr;
+	digits = 0;
+	while (temp > 0)
+	{
+		temp /= 16;
+		digits++;
+	}
+	if (size < digits)
+		size = digits;
+	while ((size - digits) != 0)
+	{
+		write(1, "0", 1);
+		size--;
+	}
+	ft_putnbr_hex(nbr);
+	return (++digits);
+}
+
+int		flag_zero_int(unsigned int size, va_list ap)
+{
+	unsigned int	digits;
+	int				nbr;
+	int				temp;
 
 	nbr = (int)va_arg(ap, int);
 	temp = nbr;
@@ -58,14 +108,14 @@ int	flag_zero_int(unsigned int size, va_list ap)
 		ft_putnbr_fd((unsigned int)nbr * -1, 1);
 	else
 		ft_putnbr_fd(nbr, 1);
-	return(++digits);
+	return (++digits);
 }
 
-int	flag_zero_uns(unsigned int size, va_list ap)
+int		flag_zero_uns(unsigned int size, va_list ap)
 {
-	unsigned int digits;
-	unsigned int nbr;
-	unsigned int temp;
+	unsigned int	digits;
+	unsigned int	nbr;
+	unsigned int	temp;
 
 	nbr = (unsigned int)va_arg(ap, int);
 	temp = nbr;
@@ -83,27 +133,24 @@ int	flag_zero_uns(unsigned int size, va_list ap)
 		size--;
 	}
 	ft_putnbr_uns_fd(nbr, 1);
-	return(++digits);
+	return (++digits);
 }
-
-// Flag "0" funciona com:
-// d
-// i
-// u
-// x
-// X
 
 char	*flag_zero(char *format, va_list ap)
 {
-	unsigned int size;
+	unsigned int	size;
 
 	size = ft_atoi(format);
-	while(ft_isdigit(*format) == 1)
+	while (ft_isdigit(*format) == 1)
 		format++;
 	if ((*format == 'd') | (*format == 'i'))
 		flag_zero_int(size, ap);
 	else if (*format == 'u')
 		flag_zero_uns(size, ap);
+	else if (*format == 'x')
+		flag_zero_hex_lower(size, ap);
+	else if (*format == 'X')
+		flag_zero_hex(size, ap);
 	return (format);
 }
 
@@ -116,7 +163,7 @@ char	*check_flag(char *format, va_list ap)
 
 void	check_conversion(char *format, va_list ap)
 {
-	char *ptr;
+	char	*ptr;
 
 	if (*format == 'c')
 	{
@@ -144,10 +191,10 @@ void	check_conversion(char *format, va_list ap)
 
 int		ft_printf(const char *format, ...)
 {
-	va_list ap;
-	char *cformat;
-	unsigned int i;
-	
+	va_list			ap;
+	char			*cformat;
+	unsigned int	i;
+
 	va_start(ap, format);
 	cformat = (char *)format;
 	i = 0;

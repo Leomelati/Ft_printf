@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/21 03:11:04 by lmartins          #+#    #+#             */
-/*   Updated: 2020/05/27 08:05:47 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/05/28 14:28:00 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ int main()
 {
 	// char char_test = 'H';
 	// char *string_test = "Lorem Ipsum";
-	// int int_test = 42;
+	int int_test = 42;
 	// int negative_int_test = -42;
-	unsigned int unsigned_test = 3000000001;
+	// unsigned int unsigned_test = 3000000001;
 
 	// ft_printf("Ft_Printf: Testando normal\n");
 	// printf("Printf: Testando normal\n");
@@ -60,8 +60,8 @@ int main()
 	// ft_printf("Ft_Printf: Testando 2%%\n");
 	// printf("Printf: Testando 2%%\n");
 	// ft_printf("\n");
-	ft_printf("Ft_Printf: %010u \n", unsigned_test);
-	printf("Printf: %010u \n", unsigned_test);
+	ft_printf("Ft_Printf: %010X \n", int_test);
+	printf("Printf: %010X \n", int_test);
 	ft_printf("\n");
 	// ft_printf("Ft_Printf: Testando as flags C: %c | S: %s | P: %p | D: %d | I: %i | U: %u | x: %x | X: %X | 2%%\n", char_test, string_test, string_test, int_test, int_test, unsigned_test, int_test, int_test);
 	// printf("Printf: Testando as flags C: %c | S: %s | P: %p | D: %d | I: %i | U: %u | x: %x | X: %X | 2%%\n", char_test, string_test, string_test, int_test, int_test, unsigned_test, int_test, int_test);
