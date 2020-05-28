@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 11:51:35 by lmartins          #+#    #+#             */
-/*   Updated: 2020/05/23 06:57:53 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/05/28 14:43:36 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void				ft_putstr_fd(char *s, int fd);
 void				ft_putendl_fd(char *s, int fd);
 void				ft_putnbr_fd(int n, int fd);
 void				ft_putnbr_hex(size_t nbr);
+void				ft_putnbr_hex_lower(size_t nbr);
 void				ft_putnbr_uns_fd(unsigned int n, int fd);
 t_list				*ft_lstnew(void *content);
 void				ft_lstadd_front(t_list **lst, t_list *new);

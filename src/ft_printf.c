@@ -6,27 +6,11 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/16 23:37:09 by user42            #+#    #+#             */
-/*   Updated: 2020/05/28 14:33:35 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/05/28 14:47:29 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-void	ft_putnbr_hex_lower(size_t nbr)
-{
-	size_t	mod;
-
-	if (nbr > 0)
-	{
-		mod = nbr % 16;
-		if (mod < 10)
-			mod += '0';
-		else
-			mod += ('a' - 10);
-		ft_putnbr_hex_lower(nbr / 16);
-		write(1, &mod, 1);
-	}
-}
 
 int		flag_zero_hex_lower(unsigned int size, va_list ap)
 {
