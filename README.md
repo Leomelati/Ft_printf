@@ -37,6 +37,10 @@ The library that contains the ft_printf function will be ready to use after the 
 
 Don't jump into the Libft folder! It is the first project that we made at 42 School and it contains a lot of functions that we need to recode to use it during other projects. To avoid confusion I will advise you to just see the functions that are used in this project that are listed below.
 
+- [Ft_atoi](https://github.com/Leomelati/Ft_printf/blob/master/Libft/ft_atoi.c)
+- [Ft_isdigit](https://github.com/Leomelati/Ft_printf/blob/master/Libft/ft_isdigit.c)
 - [Ft_putnbr_fd](https://github.com/Leomelati/Ft_printf/blob/master/Libft/ft_putnbr_fd.c)
+- [Ft_putnbr_hex](https://github.com/Leomelati/Ft_printf/blob/master/Libft/ft_putnbr_hex.c)
+- [Ft_putnbr_hex_lower](https://github.com/Leomelati/Ft_printf/blob/master/Libft/ft_putnbr_hex_lower.c)
 - [Ft_putnbr_uns_fd](https://github.com/Leomelati/Ft_printf/blob/master/Libft/ft_putnbr_uns_fd.c)
 - [Ft_putstr_fd](https://github.com/Leomelati/Ft_printf/blob/master/Libft/ft_putstr_fd.c)
