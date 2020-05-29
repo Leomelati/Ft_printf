@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/16 23:37:09 by user42            #+#    #+#             */
-/*   Updated: 2020/05/28 14:47:29 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/05/29 23:53:58 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,10 +138,36 @@ char	*flag_zero(char *format, va_list ap)
 	return (format);
 }
 
+char	*flag_plus(char *format, va_list ap)
+{
+	int				nbr;
+	unsigned int	size;
+	va_list			temp;
+	
+	va_copy(temp, ap);
+	nbr = (int)va_arg(ap, int);
+	if (nbr >= 0)
+		write(1,"+", 1);
+	format++;
+	if (*format == '0')
+	{
+		size = ft_atoi(format) - 1;
+		while (ft_isdigit(*format) == 1)
+			format++;
+		flag_zero_int(size, temp);
+	}
+	else
+		ft_putnbr_fd(nbr, 1);
+	va_end(temp);
+	return (format);
+}
+
 char	*check_flag(char *format, va_list ap)
 {
 	if (*format == '0')
 		format = flag_zero(format, ap);
+	if (*format == '+')
+		format = flag_plus(format, ap);
 	return (format);
 }
 
