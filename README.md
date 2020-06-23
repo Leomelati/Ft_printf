@@ -4,6 +4,7 @@
 One of the first projects is the recoding of the Printf function because 42 Students can't use a huge part of the built-in functions that C provides. The reimplementation will cover the following points:
 
 - It must not do the buffer management like the real printf
+- A format specifier follows this prototype: %\[flags\]\[width\]\[.precision\]\[length\]specifier
 - It will manage the following conversions:
 
 | Conversion  | Description                                |
