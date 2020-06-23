@@ -6,14 +6,14 @@
 #    By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/24 10:59:55 by lmartins          #+#    #+#              #
-#    Updated: 2020/05/29 23:19:14 by lmartins         ###   ########.fr        #
+#    Updated: 2020/06/23 07:26:16 by lmartins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 TEST_FILES = src/ft_printf.c src/main.c src/ft_printf.h Libft/ft_atoi.c \
 Libft/ft_putnbr_fd.c Libft/ft_isdigit.c Libft/ft_putstr_fd.c \
 Libft/ft_putnbr_uns_fd.c Libft/ft_putnbr_hex.c Libft/ft_putchar_fd.c \
-Libft/ft_putnbr_hex_lower.c
+Libft/ft_putnbr_hex_lower.c Libft/ft_strchr.c Libft/ft_strlen.c
 TEST_FLAGS = -g
 
 SRC_DIR = src/

@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/16 23:37:09 by user42            #+#    #+#             */
-/*   Updated: 2020/05/29 23:53:58 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/06/23 09:01:12 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,64 +162,134 @@ char	*flag_plus(char *format, va_list ap)
 	return (format);
 }
 
-char	*check_flag(char *format, va_list ap)
+void	check_flag(t_parameters *info)
 {
-	if (*format == '0')
-		format = flag_zero(format, ap);
-	if (*format == '+')
-		format = flag_plus(format, ap);
-	return (format);
+	if (info->format[info->i] == '0')
+	{
+		info->zero = TRUE;
+		info->i++;
+	}
+	if (info->format[info->i] == '+')
+	{
+		info->signal = TRUE;
+		info->i++;
+	}
+	if (info->format[info->i] == '-')
+	{
+		info->leftJustify = TRUE;
+		info->i++;
+	}
+	if (ft_strchr(FLAGS, info->format[info->i]))
+		check_flag(info);
 }
 
-void	check_conversion(char *format, va_list ap)
+void	check_width(t_parameters *info)
+{
+	info->width = ft_atoi(&info->format[info->i]);
+	while (ft_isdigit(info->format[info->i]) == 1)
+		info->i++;
+}
+
+void	check_precision(t_parameters *info)
+{
+	info->i++;
+	info->precision = ft_atoi(&info->format[info->i]);
+	while (ft_isdigit(info->format[info->i]) == 1)
+		info->i++;
+}
+
+// void	check_conversion(t_parameters *info)
+// {
+// 	char	*ptr;
+//
+// 	if (info->format[info->i] == 'c')
+// 	{
+// 		ptr = va_arg(ap, char *);
+// 		write(1, &ptr, 1);
+// 	}
+// 	else if (info->format[info->i] == 's')
+// 		ft_putstr_fd((char *)va_arg(ap, char *), 1);
+// 	else if ((info->format[info->i] == 'd') | (info->format[info->i] == 'i'))
+// 		ft_putnbr_fd((int)va_arg(ap, int), 1);
+// 	else if (info->format[info->i] == 'u')
+// 		ft_putnbr_uns_fd((unsigned int)va_arg(ap, unsigned int), 1);
+// 	else if (info->format[info->i] == 'x')
+// 		ft_putnbr_hex_lower((int)va_arg(ap, int));
+// 	else if (info->format[info->i] == 'X')
+// 		ft_putnbr_hex((int)va_arg(ap, int));
+// 	else if (info->format[info->i] == 'p')
+// 	{
+// 		ft_putstr_fd("0x", 1);
+// 		ft_putnbr_hex_lower((size_t)va_arg(ap, void *));
+// 	}
+// 	else if (info->format[info->i] == '%')
+// 		write(1, "%%", 1);
+// }
+
+void	start_infos(t_parameters *info)
+{
+	info->signal = FALSE;
+	info->zero = FALSE;
+	info->leftJustify = FALSE;
+	info->width = 0;
+	info->precision = 0;
+	info->specifier = 0;
+	info->result = NULL;
+}
+
+void	print_c_specifier(t_parameters *info, va_list ap)
 {
 	char	*ptr;
+	int		i;
 
-	if (*format == 'c')
+	i = 0;
+	if (info->format[info->i] == 'c')
 	{
 		ptr = va_arg(ap, char *);
+		info->width--;
+		if (info->leftJustify == FALSE)
+			while (i++ < info->width)
+				write(1, " ", 1);
 		write(1, &ptr, 1);
+		if (info->leftJustify == TRUE)
+			while (i++ < info->width)
+				write(1, " ", 1);
+		
 	}
-	else if (*format == 's')
-		ft_putstr_fd((char *)va_arg(ap, char *), 1);
-	else if ((*format == 'd') | (*format == 'i'))
-		ft_putnbr_fd((int)va_arg(ap, int), 1);
-	else if (*format == 'u')
-		ft_putnbr_uns_fd((unsigned int)va_arg(ap, unsigned int), 1);
-	else if (*format == 'x')
-		ft_putnbr_hex_lower((int)va_arg(ap, int));
-	else if (*format == 'X')
-		ft_putnbr_hex((int)va_arg(ap, int));
-	else if (*format == 'p')
-	{
-		ft_putstr_fd("0x", 1);
-		ft_putnbr_hex_lower((size_t)va_arg(ap, void *));
-	}
-	else if (*format == '%')
-		write(1, "%%", 1);
+}
+
+void	mount_result(t_parameters *info, va_list ap)
+{
+	if (info->format[info->i] == 'c')
+		print_c_specifier(info, ap);
 }
 
 int		ft_printf(const char *format, ...)
 {
 	va_list			ap;
-	char			*cformat;
-	unsigned int	i;
+	t_parameters	info;
 
 	va_start(ap, format);
-	cformat = (char *)format;
-	i = 0;
-	while (cformat[i] != '\0')
+	info.format = format;
+	info.i = 0;
+	while (info.format[info.i] != '\0')
 	{
-		if (cformat[i] == '%')
+		if (info.format[info.i] == '%')
 		{
-			i++;
-			check_conversion(&cformat[i], ap);
-			cformat = check_flag(&cformat[i], ap);
-			i = 0;
+			info.i++;
+			start_infos(&info);
+			if (ft_strchr(FLAGS, info.format[info.i]))
+				check_flag(&info);
+			if (ft_isdigit(info.format[info.i]))
+				check_width(&info);
+			if (info.format[info.i] == '.')
+				check_precision(&info);
+			info.specifier = info.format[info.i];
+			mount_result(&info, ap);
 		}
 		else
-			write(1, &cformat[i], 1);
-		i++;
+			write(1, &info.format[info.i], 1);
+		info.i++;
 	}
 	va_end(ap);
 	return (1);
