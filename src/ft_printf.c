@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/16 23:37:09 by user42            #+#    #+#             */
-/*   Updated: 2020/06/23 09:01:12 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/06/25 09:43:15 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,13 +202,6 @@ void	check_precision(t_parameters *info)
 // {
 // 	char	*ptr;
 //
-// 	if (info->format[info->i] == 'c')
-// 	{
-// 		ptr = va_arg(ap, char *);
-// 		write(1, &ptr, 1);
-// 	}
-// 	else if (info->format[info->i] == 's')
-// 		ft_putstr_fd((char *)va_arg(ap, char *), 1);
 // 	else if ((info->format[info->i] == 'd') | (info->format[info->i] == 'i'))
 // 		ft_putnbr_fd((int)va_arg(ap, int), 1);
 // 	else if (info->format[info->i] == 'u')
@@ -232,7 +225,7 @@ void	start_infos(t_parameters *info)
 	info->zero = FALSE;
 	info->leftJustify = FALSE;
 	info->width = 0;
-	info->precision = 0;
+	info->precision = MISSING;
 	info->specifier = 0;
 	info->result = NULL;
 }
@@ -243,25 +236,56 @@ void	print_c_specifier(t_parameters *info, va_list ap)
 	int		i;
 
 	i = 0;
-	if (info->format[info->i] == 'c')
+	ptr = va_arg(ap, char *);
+	info->width--;
+	if (info->leftJustify == FALSE)
+		while (i++ < info->width)
+			write(1, " ", 1);
+	write(1, &ptr, 1);
+	if (info->leftJustify == TRUE)
+		while (i++ < info->width)
+			write(1, " ", 1);
+}
+
+void	print_s_specifier(t_parameters *info, va_list ap)
+{
+	char	*ptr;
+	int		i;
+	int		len;
+	int		spacesToPrint;
+
+	ptr = va_arg(ap, char*);
+	if (info->precision == MISSING)
+		len = ft_strlen(ptr);
+	else
+		len = info->precision;
+	if (len >= info->width)
+		spacesToPrint = 0;
+	else
+		spacesToPrint = info->width - len;
+	i = 0;
+	if (info->leftJustify == FALSE)
+		while (i++ < spacesToPrint)
+			write(1, " ", 1);
+	i = 0;
+	while (i < len)
 	{
-		ptr = va_arg(ap, char *);
-		info->width--;
-		if (info->leftJustify == FALSE)
-			while (i++ < info->width)
-				write(1, " ", 1);
-		write(1, &ptr, 1);
-		if (info->leftJustify == TRUE)
-			while (i++ < info->width)
-				write(1, " ", 1);
-		
+		write(1, &ptr[i], 1);
+		i++;
 	}
+	i = 0;	
+	if (info->leftJustify == TRUE)
+		while (i++ < spacesToPrint)
+			write(1, " ", 1);
 }
 
 void	mount_result(t_parameters *info, va_list ap)
 {
 	if (info->format[info->i] == 'c')
 		print_c_specifier(info, ap);
+	else if (info->format[info->i] == 's')
+		print_s_specifier(info, ap);
+
 }
 
 int		ft_printf(const char *format, ...)

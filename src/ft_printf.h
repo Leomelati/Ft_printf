@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 00:48:27 by lmartins          #+#    #+#             */
-/*   Updated: 2020/06/23 08:58:25 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/06/25 09:38:51 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct	s_parameters
 
 # define TRUE 1
 # define FALSE 0
+# define MISSING -1
 # define FLAGS "-+ #0"
 # define SPECIFIERS "cspdiuxX%"
 
