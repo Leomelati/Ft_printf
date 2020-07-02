@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/16 23:37:09 by user42            #+#    #+#             */
-/*   Updated: 2020/06/25 09:43:15 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/06/30 03:51:40 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -279,12 +279,49 @@ void	print_s_specifier(t_parameters *info, va_list ap)
 			write(1, " ", 1);
 }
 
+void	print_d_specifier(t_parameters *info, va_list ap)
+{
+//		FLAGS:
+//		0 e .xx funciona igual
+//		width funciona padrão
+//		specifier > width
+//		-
+//		+
+	int		*ptr;
+	int		i;
+	int		len;
+	int		spacesToPrint;		
+
+	ptr = va_arg(ap, int *);
+	if (info->precision == MISSING)
+		len = ft_intlen(ptr);
+	else
+		len = info->precision;
+	if (len >= info->width)
+		spacesToPrint = 0;
+	else
+		spacesToPrint = info->width - len;
+	i = 0;
+	while (i < len)
+	{
+		write(1, &ptr[i], 1);
+		i++;
+	}
+	i = 0;
+	if (info->leftJustify == TRUE)
+		while (i++ < spacesToPrint)
+			write(1," ", 1);
+}
+
 void	mount_result(t_parameters *info, va_list ap)
 {
 	if (info->format[info->i] == 'c')
 		print_c_specifier(info, ap);
 	else if (info->format[info->i] == 's')
 		print_s_specifier(info, ap);
+	// else if ((info->format[info->i] == 'd') ||
+	// 	(info->format[info->i] == 'i'))
+	// 	print_d_specifier(info, ap);
 
 }
 
