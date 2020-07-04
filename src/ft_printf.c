@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/16 23:37:09 by user42            #+#    #+#             */
-/*   Updated: 2020/07/04 18:44:57 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/04 18:52:10 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,8 +202,6 @@ void	check_precision(t_parameters *info)
 // {
 // 	char	*ptr;
 //
-// 	else if ((info->format[info->i] == 'd') | (info->format[info->i] == 'i'))
-// 		ft_putnbr_fd((int)va_arg(ap, int), 1);
 // 	else if (info->format[info->i] == 'u')
 // 		ft_putnbr_uns_fd((unsigned int)va_arg(ap, unsigned int), 1);
 // 	else if (info->format[info->i] == 'x')
@@ -306,6 +304,35 @@ void	print_d_specifier(t_parameters *info, va_list ap)
 			write(1, &charToPrint, 1);
 }
 
+void	print_u_specifier(t_parameters *info, va_list ap)
+{
+	unsigned int	ptr;
+	int				i;
+	int				len;
+	int				spacesToPrint;
+	char			charToPrint;
+
+	ptr = va_arg(ap, unsigned int);
+	charToPrint = (info->zero == TRUE) ? '0' : ' ';
+	if (info->precision == MISSING)
+		len = ft_intlen(ptr);
+	else
+		len = info->precision;
+	if (len >= info->width)
+		spacesToPrint = 0;
+	else
+		spacesToPrint = info->width - len;
+	i = 0;
+	if (info->leftJustify == FALSE)
+		while (i++ < spacesToPrint)
+			write(1, &charToPrint, 1);
+	ft_putnbr_uns_fd(ptr, 1);
+	i = 0;
+	if (info->leftJustify == TRUE)
+		while (i++ < spacesToPrint)
+			write(1, &charToPrint, 1);
+}
+
 void	mount_result(t_parameters *info, va_list ap)
 {
 	if (info->format[info->i] == 'c')
@@ -315,7 +342,8 @@ void	mount_result(t_parameters *info, va_list ap)
 	else if ((info->format[info->i] == 'd') ||
 		(info->format[info->i] == 'i'))
 		print_d_specifier(info, ap);
-
+	else if (info->format[info->i] == 'u')
+		print_u_specifier(info, ap);
 }
 
 int		ft_printf(const char *format, ...)
