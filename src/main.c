@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/21 03:11:04 by lmartins          #+#    #+#             */
-/*   Updated: 2020/07/04 18:52:37 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/04 19:00:13 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ int main()
 {
 	//char char_test = 'H';
 	//char *string_test = "Lorem";
-	// int int_test = 42;
+	int int_test = 42;
 	// int negative_int_test = -42;
-	unsigned int unsigned_test = 3000000001;
+	// unsigned int unsigned_test = 3000000001;
 
 	// ft_printf("Ft_Printf: Testando normal\n");
 	// printf("Printf: Testando normal\n");
@@ -48,12 +48,12 @@ int main()
 	// ft_printf("Ft_Printf: Testando Flag I: %i\n", negative_int_test);
 	// printf("Printf: Testando Flag I: %i\n", negative_int_test);
 	// ft_printf("\n");
-	ft_printf("Ft_Printf: Testando Flag U: %-15u\n", unsigned_test);
-	printf("Printf: Testando Flag U: %-15u\n", unsigned_test);
-	ft_printf("\n");
-	// ft_printf("Ft_Printf: Testando Flag x: %x\n", int_test);
-	// printf("Printf: Testando Flag x: %x\n", int_test);
+	// ft_printf("Ft_Printf: Testando Flag U: %-15u\n", unsigned_test);
+	// printf("Printf: Testando Flag U: %-15u\n", unsigned_test);
 	// ft_printf("\n");
+	ft_printf("Ft_Printf: Testando Flag x: %05x\n", int_test);
+	printf("Printf: Testando Flag x: %05x\n", int_test);
+	ft_printf("\n");
 	// ft_printf("Ft_Printf: Testando Flag X: %X\n", int_test);
 	// printf("Printf: Testando Flag X: %X\n", int_test);
 	// ft_printf("\n");
