@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/21 03:11:04 by lmartins          #+#    #+#             */
-/*   Updated: 2020/06/30 03:23:04 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/04 18:44:40 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ int main()
 	// ft_printf("Ft_Printf: Testando Flag P: %p\n", &string_test);
 	// printf("Printf: Testando Flag P: %p\n", &string_test);
 	// ft_printf("\n");
-	//ft_printf("Ft_Printf: Testando Flag D: %d\n", int_test);
-	printf("Printf: Testando Flag D: %+d\n", int_test);
-	//ft_printf("\n");
+	ft_printf("Ft_Printf: Testando Flag D: %-+10d\n", int_test);
+	printf("Printf: Testando Flag D: %-+10d\n", int_test);
+	ft_printf("\n");
 	// ft_printf("Ft_Printf: Testando Flag I: %i\n", int_test);
 	// printf("Printf: Testando Flag I: %i\n", int_test);
 	// ft_printf("\n");

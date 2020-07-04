@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/16 23:37:09 by user42            #+#    #+#             */
-/*   Updated: 2020/06/30 03:51:40 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/04 18:44:57 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -254,7 +254,7 @@ void	print_s_specifier(t_parameters *info, va_list ap)
 	int		len;
 	int		spacesToPrint;
 
-	ptr = va_arg(ap, char*);
+	ptr = va_arg(ap, char *);
 	if (info->precision == MISSING)
 		len = ft_strlen(ptr);
 	else
@@ -268,11 +268,7 @@ void	print_s_specifier(t_parameters *info, va_list ap)
 		while (i++ < spacesToPrint)
 			write(1, " ", 1);
 	i = 0;
-	while (i < len)
-	{
-		write(1, &ptr[i], 1);
-		i++;
-	}
+	ft_putstr_fd(ptr, 1);
 	i = 0;	
 	if (info->leftJustify == TRUE)
 		while (i++ < spacesToPrint)
@@ -281,36 +277,33 @@ void	print_s_specifier(t_parameters *info, va_list ap)
 
 void	print_d_specifier(t_parameters *info, va_list ap)
 {
-//		FLAGS:
-//		0 e .xx funciona igual
-//		width funciona padrão
-//		specifier > width
-//		-
-//		+
-	int		*ptr;
+	int		ptr;
 	int		i;
 	int		len;
-	int		spacesToPrint;		
+	int		spacesToPrint;
+	char	charToPrint;
 
-	ptr = va_arg(ap, int *);
+	ptr = va_arg(ap, int);
+	charToPrint = (info->zero == TRUE) ? '0' : ' ';
 	if (info->precision == MISSING)
-		len = ft_intlen(ptr);
+		len = ft_intlen(ptr) - info->signal;
 	else
-		len = info->precision;
+		len = info->precision - info->signal;
 	if (len >= info->width)
 		spacesToPrint = 0;
 	else
-		spacesToPrint = info->width - len;
+		spacesToPrint = info->width - len - info->signal;
 	i = 0;
-	while (i < len)
-	{
-		write(1, &ptr[i], 1);
-		i++;
-	}
+	if (info->leftJustify == FALSE)
+		while (i++ < spacesToPrint)
+			write(1, &charToPrint, 1);
+	if (info->signal == TRUE)
+		write(1, "+", 1);
+	ft_putnbr_fd(ptr, 1);
 	i = 0;
 	if (info->leftJustify == TRUE)
 		while (i++ < spacesToPrint)
-			write(1," ", 1);
+			write(1, &charToPrint, 1);
 }
 
 void	mount_result(t_parameters *info, va_list ap)
@@ -319,9 +312,9 @@ void	mount_result(t_parameters *info, va_list ap)
 		print_c_specifier(info, ap);
 	else if (info->format[info->i] == 's')
 		print_s_specifier(info, ap);
-	// else if ((info->format[info->i] == 'd') ||
-	// 	(info->format[info->i] == 'i'))
-	// 	print_d_specifier(info, ap);
+	else if ((info->format[info->i] == 'd') ||
+		(info->format[info->i] == 'i'))
+		print_d_specifier(info, ap);
 
 }
 
