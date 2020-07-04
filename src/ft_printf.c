@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/16 23:37:09 by user42            #+#    #+#             */
-/*   Updated: 2020/07/04 19:10:27 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/04 19:12:04 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,19 +47,6 @@ void	check_precision(t_parameters *info)
 	while (ft_isdigit(info->format[info->i]) == 1)
 		info->i++;
 }
-
-// void	check_conversion(t_parameters *info)
-// {
-// 	char	*ptr;
-//
-// 	else if (info->format[info->i] == 'p')
-// 	{
-// 		ft_putstr_fd("0x", 1);
-// 		ft_putnbr_hex_lower((size_t)va_arg(ap, void *));
-// 	}
-// 	else if (info->format[info->i] == '%')
-// 		write(1, "%%", 1);
-// }
 
 void	start_infos(t_parameters *info)
 {
@@ -281,7 +268,9 @@ void	mount_result(t_parameters *info, va_list ap)
 	else if (info->format[info->i] == 'X')
 		print_X_specifier(info, ap);
 	else if (info->format[info->i] == 'p')
-		print_p_specifier(info, ap);		
+		print_p_specifier(info, ap);
+	else if (info->format[info->i] == '%')
+		write(1, "%%", 1);
 }
 
 int		ft_printf(const char *format, ...)
