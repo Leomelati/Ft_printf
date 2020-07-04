@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/16 23:37:09 by user42            #+#    #+#             */
-/*   Updated: 2020/07/04 19:12:04 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/05 00:00:46 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,16 @@ void	check_width(t_parameters *info)
 		info->i++;
 }
 
-void	check_precision(t_parameters *info)
+void	check_precision(t_parameters *info, va_list ap)
 {
 	info->i++;
-	info->precision = ft_atoi(&info->format[info->i]);
+	if (info->format[info->i] == '*')
+	{
+		info->precision = va_arg(ap, int);
+		info->i++;
+	}
+	else
+		info->precision = ft_atoi(&info->format[info->i]);
 	while (ft_isdigit(info->format[info->i]) == 1)
 		info->i++;
 }
@@ -53,9 +59,9 @@ void	start_infos(t_parameters *info)
 	info->signal = FALSE;
 	info->zero = FALSE;
 	info->leftJustify = FALSE;
-	info->width = 0;
+	info->width = FALSE;
 	info->precision = MISSING;
-	info->specifier = 0;
+	info->specifier = FALSE;
 	info->result = NULL;
 }
 
@@ -84,9 +90,17 @@ void	print_s_specifier(t_parameters *info, va_list ap)
 	int		spacesToPrint;
 
 	ptr = va_arg(ap, char *);
-	if (info->precision == MISSING)
-		len = ft_strlen(ptr);
-	else
+	if (!ptr)
+	{
+		ptr = "(null)";
+		if (info->precision > MISSING)
+			info->precision = (info->precision >= 6) ? 6 : FALSE;
+		else
+			info->precision = 6;
+		
+	}
+	len = ft_strlen(ptr);
+	if ((info->precision < len) && (info->precision != MISSING))
 		len = info->precision;
 	if (len >= info->width)
 		spacesToPrint = 0;
@@ -97,7 +111,8 @@ void	print_s_specifier(t_parameters *info, va_list ap)
 		while (i++ < spacesToPrint)
 			write(1, " ", 1);
 	i = 0;
-	ft_putstr_fd(ptr, 1);
+	while ((i < len) && (ptr[i] != '\0'))
+		write(1, &ptr[i++], 1);
 	i = 0;	
 	if (info->leftJustify == TRUE)
 		while (i++ < spacesToPrint)
@@ -292,7 +307,7 @@ int		ft_printf(const char *format, ...)
 			if (ft_isdigit(info.format[info.i]))
 				check_width(&info);
 			if (info.format[info.i] == '.')
-				check_precision(&info);
+				check_precision(&info, ap);
 			info.specifier = info.format[info.i];
 			mount_result(&info, ap);
 		}
