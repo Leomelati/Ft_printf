@@ -6,7 +6,7 @@
 #    By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/24 10:59:55 by lmartins          #+#    #+#              #
-#    Updated: 2020/06/30 03:47:36 by lmartins         ###   ########.fr        #
+#    Updated: 2020/07/05 10:36:32 by lmartins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ TEST_FILES = src/ft_printf.c src/main.c src/ft_printf.h Libft/ft_atoi.c \
 Libft/ft_putnbr_fd.c Libft/ft_isdigit.c Libft/ft_putstr_fd.c \
 Libft/ft_putnbr_uns_fd.c Libft/ft_putnbr_hex.c Libft/ft_putchar_fd.c \
 Libft/ft_putnbr_hex_lower.c Libft/ft_strchr.c Libft/ft_strlen.c \
-Libft/ft_intlen.c
+Libft/ft_intlen.c Libft/ft_itoa.c
 TEST_FLAGS = -g
 
 SRC_DIR = src/

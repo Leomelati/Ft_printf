@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/16 23:37:09 by user42            #+#    #+#             */
-/*   Updated: 2020/07/05 00:00:46 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/05 10:43:54 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,29 +121,35 @@ void	print_s_specifier(t_parameters *info, va_list ap)
 
 void	print_d_specifier(t_parameters *info, va_list ap)
 {
-	int		ptr;
+	char	*ptr;
 	int		i;
 	int		len;
 	int		spacesToPrint;
 	char	charToPrint;
 
-	ptr = va_arg(ap, int);
+	ptr = ft_itoa(va_arg(ap, int));
 	charToPrint = (info->zero == TRUE) ? '0' : ' ';
-	if (info->precision == MISSING)
-		len = ft_intlen(ptr) - info->signal;
-	else
-		len = info->precision - info->signal;
-	if (len >= info->width)
+	(*ptr == 0) ? info->width-- : 0;
+	len = ft_strlen(ptr);
+	if ((len >= info->width) && (info->width <= info->precision))
 		spacesToPrint = 0;
+	else if (info->precision == MISSING)
+		spacesToPrint = info->width - len;
 	else
-		spacesToPrint = info->width - len - info->signal;
+		spacesToPrint = info->width - ((info->precision > 0) ? info->precision : 0 );
+	if (info->signal == TRUE)
+		write(1, "+", 1);
 	i = 0;
 	if (info->leftJustify == FALSE)
 		while (i++ < spacesToPrint)
 			write(1, &charToPrint, 1);
-	if (info->signal == TRUE)
-		write(1, "+", 1);
-	ft_putnbr_fd(ptr, 1);
+	i = 0;
+	if ((info->precision > 0) && (info->precision >= len))
+		while (i++ < (info->precision - len))
+			write(1, "0", 1);	
+	i = 0;
+	while (ptr[i] != '\0')
+		write(1, &ptr[i++], 1);
 	i = 0;
 	if (info->leftJustify == TRUE)
 		while (i++ < spacesToPrint)
