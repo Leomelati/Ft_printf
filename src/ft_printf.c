@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/16 23:37:09 by user42            #+#    #+#             */
-/*   Updated: 2020/07/05 10:43:54 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/06 06:50:00 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,18 +131,31 @@ void	print_d_specifier(t_parameters *info, va_list ap)
 	charToPrint = (info->zero == TRUE) ? '0' : ' ';
 	(*ptr == 0) ? info->width-- : 0;
 	len = ft_strlen(ptr);
+	if ((len > info->precision) && (info->precision != MISSING))
+		info->width--;
+	(*ptr == '-') ? len-- : 0;
+	(*ptr == '-') ? info->width-- : 0;
 	if ((len >= info->width) && (info->width <= info->precision))
 		spacesToPrint = 0;
 	else if (info->precision == MISSING)
 		spacesToPrint = info->width - len;
 	else
-		spacesToPrint = info->width - ((info->precision > 0) ? info->precision : 0 );
+		spacesToPrint = info->width - ((info->precision > 0) ? info->precision : 0);
 	if (info->signal == TRUE)
 		write(1, "+", 1);
-	i = 0;
+	if ((*ptr == '-') && (info->zero == TRUE))
+	{
+		write(1, "-", 1);
+		ptr++;
+	}	
 	if (info->leftJustify == FALSE)
-		while (i++ < spacesToPrint)
+		while (0 < spacesToPrint--)
 			write(1, &charToPrint, 1);
+	if ((*ptr == '-') && (info->zero == FALSE))
+	{
+		write(1, "-", 1);
+		ptr++;
+	}
 	i = 0;
 	if ((info->precision > 0) && (info->precision >= len))
 		while (i++ < (info->precision - len))
@@ -150,9 +163,8 @@ void	print_d_specifier(t_parameters *info, va_list ap)
 	i = 0;
 	while (ptr[i] != '\0')
 		write(1, &ptr[i++], 1);
-	i = 0;
 	if (info->leftJustify == TRUE)
-		while (i++ < spacesToPrint)
+		while (0 < spacesToPrint--)
 			write(1, &charToPrint, 1);
 }
 
