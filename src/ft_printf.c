@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/16 23:37:09 by user42            #+#    #+#             */
-/*   Updated: 2020/07/07 07:37:50 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/07 08:48:56 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,6 @@ void	print_d_specifier(t_parameters *info, va_list ap)
 	char	charToPrint;
 
 	ptr = ft_itoa(va_arg(ap, int));
-	
 	if ((info->zero == TRUE) && (info->precision == MISSING))
 		charToPrint = '0';
 	else
@@ -217,59 +216,87 @@ void	print_u_specifier(t_parameters *info, va_list ap)
 
 void	print_x_specifier(t_parameters *info, va_list ap)
 {
-	int		ptr;
+	unsigned int	ptr;
 	int		i;
 	int		len;
 	int		spacesToPrint;
 	char	charToPrint;
 
-	ptr = va_arg(ap, int);
-	charToPrint = (info->zero == TRUE) ? '0' : ' ';
-	if (info->precision == MISSING)
-		len = ft_intlen(ptr);
+	ptr = (size_t)va_arg(ap, unsigned int);
+	if ((info->zero == TRUE) && (info->precision == MISSING))
+		charToPrint = '0';
 	else
-		len = info->precision;
-	if (len >= info->width)
+		charToPrint = ' ';
+	len = ft_hexlen(ptr) - ((ptr > 0) ? 1 : 0);
+	if ((len > info->precision) && (info->precision != MISSING))
+		info->width--;
+	if ((len >= info->width) && (info->width <= info->precision))
 		spacesToPrint = 0;
-	else
+	else if (info->precision == MISSING)
 		spacesToPrint = info->width - len;
-	i = 0;
+	else
+		spacesToPrint = info->width - ((info->precision > 0) ? info->precision : 0);
+	if ((info->width > 0) && (info->precision == 0))
+		spacesToPrint++;
 	if (info->leftJustify == FALSE)
-		while (i++ < spacesToPrint)
+		while (0 < spacesToPrint--)
 			write(1, &charToPrint, 1);
-	ft_putnbr_hex_lower(ptr);
 	i = 0;
+	if ((info->precision > 0) && (info->precision >= len))
+		while (i++ < (info->precision - len))
+			write(1, "0", 1);
+	if (info->precision != 0)
+	{
+		if (ptr == 0)
+			write(1, "0", 1);
+		else
+			ft_putnbr_hex_lower(ptr);
+	}
 	if (info->leftJustify == TRUE)
-		while (i++ < spacesToPrint)
+		while (0 < spacesToPrint--)
 			write(1, &charToPrint, 1);
 }
 
 void	print_X_specifier(t_parameters *info, va_list ap)
 {
-	int		ptr;
+	unsigned int	ptr;
 	int		i;
 	int		len;
 	int		spacesToPrint;
 	char	charToPrint;
 
-	ptr = va_arg(ap, int);
-	charToPrint = (info->zero == TRUE) ? '0' : ' ';
-	if (info->precision == MISSING)
-		len = ft_intlen(ptr);
+	ptr = (size_t)va_arg(ap, unsigned int);
+	if ((info->zero == TRUE) && (info->precision == MISSING))
+		charToPrint = '0';
 	else
-		len = info->precision;
-	if (len >= info->width)
+		charToPrint = ' ';
+	len = ft_hexlen(ptr) - ((ptr > 0) ? 1 : 0);
+	if ((len > info->precision) && (info->precision != MISSING))
+		info->width--;
+	if ((len >= info->width) && (info->width <= info->precision))
 		spacesToPrint = 0;
-	else
+	else if (info->precision == MISSING)
 		spacesToPrint = info->width - len;
-	i = 0;
+	else
+		spacesToPrint = info->width - ((info->precision > 0) ? info->precision : 0);
+	if ((info->width > 0) && (info->precision == 0))
+		spacesToPrint++;
 	if (info->leftJustify == FALSE)
-		while (i++ < spacesToPrint)
+		while (0 < spacesToPrint--)
 			write(1, &charToPrint, 1);
-	ft_putnbr_hex(ptr);
 	i = 0;
+	if ((info->precision > 0) && (info->precision >= len))
+		while (i++ < (info->precision - len))
+			write(1, "0", 1);
+	if (info->precision != 0)
+	{
+		if (ptr == 0)
+			write(1, "0", 1);
+		else
+			ft_putnbr_hex(ptr);
+	}
 	if (info->leftJustify == TRUE)
-		while (i++ < spacesToPrint)
+		while (0 < spacesToPrint--)
 			write(1, &charToPrint, 1);
 }
 
