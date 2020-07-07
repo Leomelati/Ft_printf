@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/16 23:37:09 by user42            #+#    #+#             */
-/*   Updated: 2020/07/07 08:48:56 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/07 09:11:18 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,21 @@ void	check_flag(t_parameters *info)
 		check_flag(info);
 }
 
-void	check_width(t_parameters *info)
+void	check_width(t_parameters *info, va_list ap)
 {
-	info->width = ft_atoi(&info->format[info->i]);
+	if (info->format[info->i] == '*')
+	{
+		info->width = va_arg(ap, int);
+		if (info->width < 0)
+		{
+			info->width *= -1;
+			info->leftJustify = TRUE;
+			info->zero = FALSE;
+		}
+		info->i++;
+	}
+	else
+		info->width = ft_atoi(&info->format[info->i]);
 	while (ft_isdigit(info->format[info->i]) == 1)
 		info->i++;
 }
@@ -371,8 +383,8 @@ int		ft_printf(const char *format, ...)
 			start_infos(&info);
 			if (ft_strchr(FLAGS, info.format[info.i]))
 				check_flag(&info);
-			if (ft_isdigit(info.format[info.i]))
-				check_width(&info);
+			if ((ft_isdigit(info.format[info.i])) || (info.format[info.i] == '*'))
+				check_width(&info, ap);
 			if (info.format[info.i] == '.')
 				check_precision(&info, ap);
 			info.specifier = info.format[info.i];
