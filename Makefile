@@ -6,7 +6,7 @@
 #    By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/24 10:59:55 by lmartins          #+#    #+#              #
-#    Updated: 2020/07/05 10:36:32 by lmartins         ###   ########.fr        #
+#    Updated: 2020/07/06 06:55:40 by lmartins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,8 @@ OBJ_DIR = src/obj/
 OBJ_FILES = $(SRC:.c=.o)
 OBJ = $(addprefix $(OBJ_DIR), $(notdir $(OBJ_FILES)))
 
-CC = gcc -Wall -Wextra -Werror
+# CC = gcc -Wall -Wextra -Werror
+CC = gcc
 
 NAME = libftprintf.a
 

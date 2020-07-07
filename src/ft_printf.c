@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/16 23:37:09 by user42            #+#    #+#             */
-/*   Updated: 2020/07/06 06:50:00 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/07 06:01:44 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,8 +128,11 @@ void	print_d_specifier(t_parameters *info, va_list ap)
 	char	charToPrint;
 
 	ptr = ft_itoa(va_arg(ap, int));
-	charToPrint = (info->zero == TRUE) ? '0' : ' ';
-	(*ptr == 0) ? info->width-- : 0;
+	
+	if ((info->zero == TRUE) && (info->precision == MISSING))
+		charToPrint = '0';
+	else
+		charToPrint = ' ';
 	len = ft_strlen(ptr);
 	if ((len > info->precision) && (info->precision != MISSING))
 		info->width--;
@@ -141,9 +144,11 @@ void	print_d_specifier(t_parameters *info, va_list ap)
 		spacesToPrint = info->width - len;
 	else
 		spacesToPrint = info->width - ((info->precision > 0) ? info->precision : 0);
+	if ((info->width > 0) && (info->precision == 0))
+		spacesToPrint++;
 	if (info->signal == TRUE)
 		write(1, "+", 1);
-	if ((*ptr == '-') && (info->zero == TRUE))
+	if ((*ptr == '-') && (info->zero == TRUE) && (info->precision == MISSING))
 	{
 		write(1, "-", 1);
 		ptr++;
@@ -151,7 +156,7 @@ void	print_d_specifier(t_parameters *info, va_list ap)
 	if (info->leftJustify == FALSE)
 		while (0 < spacesToPrint--)
 			write(1, &charToPrint, 1);
-	if ((*ptr == '-') && (info->zero == FALSE))
+	if ((*ptr == '-') && (info->precision != MISSING))
 	{
 		write(1, "-", 1);
 		ptr++;
@@ -161,7 +166,7 @@ void	print_d_specifier(t_parameters *info, va_list ap)
 		while (i++ < (info->precision - len))
 			write(1, "0", 1);	
 	i = 0;
-	while (ptr[i] != '\0')
+	while ((ptr[i] != '\0') && (info->precision != 0))
 		write(1, &ptr[i++], 1);
 	if (info->leftJustify == TRUE)
 		while (0 < spacesToPrint--)
