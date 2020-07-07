@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/16 23:37:09 by user42            #+#    #+#             */
-/*   Updated: 2020/07/07 06:46:55 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/07 07:37:50 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,30 +176,42 @@ void	print_d_specifier(t_parameters *info, va_list ap)
 
 void	print_u_specifier(t_parameters *info, va_list ap)
 {
-	unsigned int	ptr;
-	int				i;
-	int				len;
-	int				spacesToPrint;
-	char			charToPrint;
+	char	*ptr;
+	int		i;
+	int		len;
+	int		spacesToPrint;
+	char	charToPrint;
 
-	ptr = va_arg(ap, unsigned int);
-	charToPrint = (info->zero == TRUE) ? '0' : ' ';
-	if (info->precision == MISSING)
-		len = ft_intlen(ptr);
+	ptr = ft_itoa_uns(va_arg(ap, unsigned int));
+	if ((info->zero == TRUE) && (info->precision == MISSING))
+		charToPrint = '0';
 	else
-		len = info->precision;
-	if (len >= info->width)
+		charToPrint = ' ';
+	len = ft_strlen(ptr);
+	if ((len > info->precision) && (info->precision != MISSING))
+		info->width--;
+	if ((len >= info->width) && (info->width <= info->precision))
 		spacesToPrint = 0;
-	else
+	else if (info->precision == MISSING)
 		spacesToPrint = info->width - len;
-	i = 0;
+	else
+		spacesToPrint = info->width - ((info->precision > 0) ? info->precision : 0);
+	if ((info->width > 0) && (info->precision == 0))
+		spacesToPrint++;
+	if (info->signal == TRUE)
+		write(1, "+", 1);
 	if (info->leftJustify == FALSE)
-		while (i++ < spacesToPrint)
+		while (0 < spacesToPrint--)
 			write(1, &charToPrint, 1);
-	ft_putnbr_uns_fd(ptr, 1);
 	i = 0;
+	if ((info->precision > 0) && (info->precision >= len))
+		while (i++ < (info->precision - len))
+			write(1, "0", 1);	
+	i = 0;
+	while ((ptr[i] != '\0') && (info->precision != 0))
+		write(1, &ptr[i++], 1);
 	if (info->leftJustify == TRUE)
-		while (i++ < spacesToPrint)
+		while (0 < spacesToPrint--)
 			write(1, &charToPrint, 1);
 }
 
