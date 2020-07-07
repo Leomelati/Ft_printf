@@ -1,28 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_hexlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/21 03:11:04 by lmartins          #+#    #+#             */
-/*   Updated: 2020/07/07 06:47:04 by lmartins         ###   ########.fr       */
+/*   Created: 2020/07/07 06:27:41 by lmartins          #+#    #+#             */
+/*   Updated: 2020/07/07 06:36:44 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
+/*
+** Converts an integer of base 10 into a hexadecimal base.
+** Return the number of caracters after the conversion.
+*/
 
-int main()
+size_t	ft_hexlen(size_t nbr)
 {
-	//char char_test = 'H';
-	// char *string_test = NULL;
-	void *int_test;
-	// int negative_int_test = -42;
-	// unsigned int unsigned_test = 3000000001;
+	size_t	mod;
+	size_t	i;
 
-	ft_printf("Printm: \"%.*p\"\n", 3, &int_test);
-	printf("Printf: \"%.*p\"\n", 3, &int_test);
-	ft_printf("\n");
-	return (0);
+	i = 1;
+	if (nbr > 0)
+	{
+		mod = nbr % 16;
+		if (mod < 10)
+			mod += '0';
+		else
+			mod += ('a' - 10);
+		i += ft_hexlen(nbr / 16);
+	}
+	return (i);
 }

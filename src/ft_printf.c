@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/16 23:37:09 by user42            #+#    #+#             */
-/*   Updated: 2020/07/07 06:01:44 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/07 06:46:55 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	check_precision(t_parameters *info, va_list ap)
 	if (info->format[info->i] == '*')
 	{
 		info->precision = va_arg(ap, int);
+		(info->precision < MISSING) ? info->precision = MISSING : 0;
 		info->i++;
 	}
 	else
@@ -268,26 +269,30 @@ void	print_p_specifier(t_parameters *info, va_list ap)
 	int		spacesToPrint;
 	char	charToPrint;
 
-	ptr = (size_t)va_arg(ap, void *);
-	ft_putstr_fd("0x", 1);
-	charToPrint = (info->zero == TRUE) ? '0' : ' ';
-	if (info->precision == MISSING)
-		len = ft_intlen(ptr);
+	if (ptr = (size_t)va_arg(ap, void *))
+	{
+		charToPrint = (info->zero == TRUE) ? '0' : ' ';
+		if (info->precision == MISSING)
+			len = ft_hexlen(ptr) + 1;
+		else
+			len = info->precision;
+		if (len >= info->width)
+			spacesToPrint = 0;
+		else
+			spacesToPrint = info->width - len;
+		i = 0;
+		if (info->leftJustify == FALSE)
+			while (i++ < spacesToPrint)
+				write(1, &charToPrint, 1);
+		ft_putstr_fd("0x", 1);
+		ft_putnbr_hex_lower(ptr);
+		i = 0;
+		if (info->leftJustify == TRUE)
+			while (i++ < spacesToPrint)
+				write(1, &charToPrint, 1);
+	}
 	else
-		len = info->precision;
-	if (len >= info->width)
-		spacesToPrint = 0;
-	else
-		spacesToPrint = info->width - len;
-	i = 0;
-	if (info->leftJustify == FALSE)
-		while (i++ < spacesToPrint)
-			write(1, &charToPrint, 1);
-	ft_putnbr_hex_lower(ptr);
-	i = 0;
-	if (info->leftJustify == TRUE)
-		while (i++ < spacesToPrint)
-			write(1, &charToPrint, 1);
+		ft_putstr_fd("(nil)", 1);
 }
 
 void	mount_result(t_parameters *info, va_list ap)
