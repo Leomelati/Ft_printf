@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/16 23:37:09 by user42            #+#    #+#             */
-/*   Updated: 2020/07/10 07:34:52 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/10 07:50:29 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	print_s_specifier(t_parameters *info, va_list ap)
 	char	*ptr;
 	int		i;
 	int		len;
-	int		spacesToPrint;
+	int		spacestoprint;
 
 	ptr = va_arg(ap, char *);
 	(!ptr) ? ptr = "(null)" : FALSE;
@@ -113,19 +113,19 @@ void	print_s_specifier(t_parameters *info, va_list ap)
 	if ((info->precision < len) && (info->precision != MISSING))
 		len = info->precision;
 	if (len >= info->width)
-		spacesToPrint = 0;
+		spacestoprint = 0;
 	else
-		spacesToPrint = info->width - len;
+		spacestoprint = info->width - len;
 	i = 0;
 	if (info->leftJustify == FALSE)
-		while (i++ < spacesToPrint)
+		while (i++ < spacestoprint)
 			write(1, " ", 1);
 	i = 0;
 	while ((i < len) && (ptr[i] != '\0'))
 		write(1, &ptr[i++], 1);
-	i = 0;	
+	i = 0;
 	if (info->leftJustify == TRUE)
-		while (i++ < spacesToPrint)
+		while (i++ < spacestoprint)
 			write(1, " ", 1);
 }
 
@@ -134,37 +134,40 @@ void	print_d_specifier(t_parameters *info, va_list ap)
 	char	*ptr;
 	int		i;
 	int		len;
-	int		spacesToPrint;
-	char	charToPrint;
+	int		spacestoprint;
+	char	chartoprint;
 
 	ptr = ft_itoa(va_arg(ap, int));
 	if ((info->zero == TRUE) && (info->precision == MISSING))
-		charToPrint = '0';
+		chartoprint = '0';
 	else
-		charToPrint = ' ';
+		chartoprint = ' ';
 	len = ft_strlen(ptr);
 	if ((len > info->precision) && (info->precision != MISSING))
 		info->width--;
 	(*ptr == '-') ? len-- : 0;
 	(*ptr == '-') ? info->width-- : 0;
 	if ((len >= info->width) && (info->width <= info->precision))
-		spacesToPrint = 0;
+		spacestoprint = 0;
 	else if (info->precision == MISSING)
-		spacesToPrint = info->width - len;
+		spacestoprint = info->width - len;
 	else
-		spacesToPrint = info->width - ((info->precision > 0) ? info->precision : 0);
+	{
+		spacestoprint = info->width;
+		spacestoprint -= ((info->precision > 0) ? info->precision : 0);
+	}
 	if ((info->width > 0) && (info->precision == 0))
-		spacesToPrint++;
+		spacestoprint++;
 	if (info->signal == TRUE)
 		write(1, "+", 1);
 	if ((*ptr == '-') && (info->zero == TRUE) && (info->precision == MISSING))
 	{
 		write(1, "-", 1);
 		ptr++;
-	}	
+	}
 	if (info->leftJustify == FALSE)
-		while (0 < spacesToPrint--)
-			write(1, &charToPrint, 1);
+		while (0 < spacestoprint--)
+			write(1, &chartoprint, 1);
 	if ((*ptr == '-') && (info->precision != MISSING))
 	{
 		write(1, "-", 1);
@@ -173,13 +176,13 @@ void	print_d_specifier(t_parameters *info, va_list ap)
 	i = 0;
 	if ((info->precision > 0) && (info->precision >= len))
 		while (i++ < (info->precision - len))
-			write(1, "0", 1);	
+			write(1, "0", 1);
 	i = 0;
 	while ((ptr[i] != '\0') && (info->precision != 0))
 		write(1, &ptr[i++], 1);
 	if (info->leftJustify == TRUE)
-		while (0 < spacesToPrint--)
-			write(1, &charToPrint, 1);
+		while (0 < spacestoprint--)
+			write(1, &chartoprint, 1);
 }
 
 void	print_u_specifier(t_parameters *info, va_list ap)
@@ -187,69 +190,75 @@ void	print_u_specifier(t_parameters *info, va_list ap)
 	char	*ptr;
 	int		i;
 	int		len;
-	int		spacesToPrint;
-	char	charToPrint;
+	int		spacestoprint;
+	char	chartoprint;
 
 	ptr = ft_itoa_uns(va_arg(ap, unsigned int));
 	if ((info->zero == TRUE) && (info->precision == MISSING))
-		charToPrint = '0';
+		chartoprint = '0';
 	else
-		charToPrint = ' ';
+		chartoprint = ' ';
 	len = ft_strlen(ptr);
 	if ((len > info->precision) && (info->precision != MISSING))
 		info->width--;
 	if ((len >= info->width) && (info->width <= info->precision))
-		spacesToPrint = 0;
+		spacestoprint = 0;
 	else if (info->precision == MISSING)
-		spacesToPrint = info->width - len;
+		spacestoprint = info->width - len;
 	else
-		spacesToPrint = info->width - ((info->precision > 0) ? info->precision : 0);
+	{
+		spacestoprint = info->width;
+		spacestoprint -= ((info->precision > 0) ? info->precision : 0);
+	}
 	if ((info->width > 0) && (info->precision == 0))
-		spacesToPrint++;
+		spacestoprint++;
 	if (info->signal == TRUE)
 		write(1, "+", 1);
 	if (info->leftJustify == FALSE)
-		while (0 < spacesToPrint--)
-			write(1, &charToPrint, 1);
+		while (0 < spacestoprint--)
+			write(1, &chartoprint, 1);
 	i = 0;
 	if ((info->precision > 0) && (info->precision >= len))
 		while (i++ < (info->precision - len))
-			write(1, "0", 1);	
+			write(1, "0", 1);
 	i = 0;
 	while ((ptr[i] != '\0') && (info->precision != 0))
 		write(1, &ptr[i++], 1);
 	if (info->leftJustify == TRUE)
-		while (0 < spacesToPrint--)
-			write(1, &charToPrint, 1);
+		while (0 < spacestoprint--)
+			write(1, &chartoprint, 1);
 }
 
 void	print_x_specifier(t_parameters *info, va_list ap)
 {
 	unsigned int	ptr;
-	int		i;
-	int		len;
-	int		spacesToPrint;
-	char	charToPrint;
+	int				i;
+	int				len;
+	int				spacestoprint;
+	char			chartoprint;
 
 	ptr = (size_t)va_arg(ap, unsigned int);
 	if ((info->zero == TRUE) && (info->precision == MISSING))
-		charToPrint = '0';
+		chartoprint = '0';
 	else
-		charToPrint = ' ';
+		chartoprint = ' ';
 	len = ft_hexlen(ptr) - ((ptr > 0) ? 1 : 0);
 	if ((len > info->precision) && (info->precision != MISSING))
 		info->width--;
 	if ((len >= info->width) && (info->width <= info->precision))
-		spacesToPrint = 0;
+		spacestoprint = 0;
 	else if (info->precision == MISSING)
-		spacesToPrint = info->width - len;
+		spacestoprint = info->width - len;
 	else
-		spacesToPrint = info->width - ((info->precision > 0) ? info->precision : 0);
+	{
+		spacestoprint = info->width;
+		spacestoprint -= ((info->precision > 0) ? info->precision : 0);
+	}
 	if ((info->width > 0) && (info->precision == 0))
-		spacesToPrint++;
+		spacestoprint++;
 	if (info->leftJustify == FALSE)
-		while (0 < spacesToPrint--)
-			write(1, &charToPrint, 1);
+		while (0 < spacestoprint--)
+			write(1, &chartoprint, 1);
 	i = 0;
 	if ((info->precision > 0) && (info->precision >= len))
 		while (i++ < (info->precision - len))
@@ -262,37 +271,40 @@ void	print_x_specifier(t_parameters *info, va_list ap)
 			ft_putnbr_hex_lower(ptr);
 	}
 	if (info->leftJustify == TRUE)
-		while (0 < spacesToPrint--)
-			write(1, &charToPrint, 1);
+		while (0 < spacestoprint--)
+			write(1, &chartoprint, 1);
 }
 
-void	print_X_specifier(t_parameters *info, va_list ap)
+void	print_upper_x_specifier(t_parameters *info, va_list ap)
 {
 	unsigned int	ptr;
-	int		i;
-	int		len;
-	int		spacesToPrint;
-	char	charToPrint;
+	int				i;
+	int				len;
+	int				spacestoprint;
+	char			chartoprint;
 
 	ptr = (size_t)va_arg(ap, unsigned int);
 	if ((info->zero == TRUE) && (info->precision == MISSING))
-		charToPrint = '0';
+		chartoprint = '0';
 	else
-		charToPrint = ' ';
+		chartoprint = ' ';
 	len = ft_hexlen(ptr) - ((ptr > 0) ? 1 : 0);
 	if ((len > info->precision) && (info->precision != MISSING))
 		info->width--;
 	if ((len >= info->width) && (info->width <= info->precision))
-		spacesToPrint = 0;
+		spacestoprint = 0;
 	else if (info->precision == MISSING)
-		spacesToPrint = info->width - len;
+		spacestoprint = info->width - len;
 	else
-		spacesToPrint = info->width - ((info->precision > 0) ? info->precision : 0);
+	{
+		spacestoprint = info->width;
+		spacestoprint -= ((info->precision > 0) ? info->precision : 0);
+	}
 	if ((info->width > 0) && (info->precision == 0))
-		spacesToPrint++;
+		spacestoprint++;
 	if (info->leftJustify == FALSE)
-		while (0 < spacesToPrint--)
-			write(1, &charToPrint, 1);
+		while (0 < spacestoprint--)
+			write(1, &chartoprint, 1);
 	i = 0;
 	if ((info->precision > 0) && (info->precision >= len))
 		while (i++ < (info->precision - len))
@@ -305,8 +317,8 @@ void	print_X_specifier(t_parameters *info, va_list ap)
 			ft_putnbr_hex(ptr);
 	}
 	if (info->leftJustify == TRUE)
-		while (0 < spacesToPrint--)
-			write(1, &charToPrint, 1);
+		while (0 < spacestoprint--)
+			write(1, &chartoprint, 1);
 }
 
 void	print_p_specifier(t_parameters *info, va_list ap)
@@ -314,55 +326,55 @@ void	print_p_specifier(t_parameters *info, va_list ap)
 	size_t	ptr;
 	int		i;
 	int		len;
-	int		spacesToPrint;
-	char	charToPrint;
+	int		spacestoprint;
+	char	chartoprint;
 
 	ptr = (size_t)va_arg(ap, void *);
-	charToPrint = (info->zero == TRUE) ? '0' : ' ';
+	chartoprint = (info->zero == TRUE) ? '0' : ' ';
 	if (info->precision == MISSING)
 		len = ft_hexlen(ptr) + 1;
 	else
 		len = info->precision;
 	if (len >= info->width)
-		spacesToPrint = 0;
+		spacestoprint = 0;
 	else
-		spacesToPrint = info->width - len;
-	(!ptr) ? spacesToPrint-- : 0;
+		spacestoprint = info->width - len;
+	(!ptr) ? spacestoprint-- : 0;
 	i = 0;
 	if (info->leftJustify == FALSE)
-		while (i++ < spacesToPrint)
-			write(1, &charToPrint, 1);
+		while (i++ < spacestoprint)
+			write(1, &chartoprint, 1);
 	ft_putstr_fd("0x", 1);
 	(!ptr) ? ft_putstr_fd("0", 1) : ft_putnbr_hex_lower(ptr);
 	i = 0;
 	if (info->leftJustify == TRUE)
-		while (i++ < spacesToPrint)
-			write(1, &charToPrint, 1);
+		while (i++ < spacestoprint)
+			write(1, &chartoprint, 1);
 }
 
 void	print_percentage_specifier(t_parameters *info)
 {
 	int		i;
-	char	charToPrint;
-	int		spacesToPrint;
+	char	chartoprint;
+	int		spacestoprint;
 
 	if ((info->zero == TRUE) && (info->leftJustify) == FALSE)
-		charToPrint = '0';
+		chartoprint = '0';
 	else
-		charToPrint = ' ';
+		chartoprint = ' ';
 	if (1 >= info->width)
-		spacesToPrint = 0;
+		spacestoprint = 0;
 	else
-		spacesToPrint = info->width - 1;
+		spacestoprint = info->width - 1;
 	i = 0;
 	if (info->leftJustify == FALSE)
-		while (i++ < spacesToPrint)
-			write(1, &charToPrint, 1);
+		while (i++ < spacestoprint)
+			write(1, &chartoprint, 1);
 	write(1, "%%", 1);
-	i = 0;	
+	i = 0;
 	if (info->leftJustify == TRUE)
-		while (i++ < spacesToPrint)
-			write(1, &charToPrint, 1);
+		while (i++ < spacestoprint)
+			write(1, &chartoprint, 1);
 }
 
 void	mount_result(t_parameters *info, va_list ap)
@@ -381,7 +393,7 @@ void	mount_result(t_parameters *info, va_list ap)
 	else if (c == 'x')
 		print_x_specifier(info, ap);
 	else if (c == 'X')
-		print_X_specifier(info, ap);
+		print_upper_x_specifier(info, ap);
 	else if (c == 'p')
 		print_p_specifier(info, ap);
 	else if (c == '%')
@@ -404,7 +416,8 @@ int		ft_printf(const char *format, ...)
 			start_infos(&info);
 			if (ft_strchr(FLAGS, info.format[info.i]))
 				check_flag(&info);
-			if ((ft_isdigit(info.format[info.i])) || (info.format[info.i] == '*'))
+			if ((ft_isdigit(info.format[info.i])) ||
+					(info.format[info.i] == '*'))
 				check_width(&info, ap);
 			if (info.format[info.i] == '.')
 				check_precision(&info, ap);
