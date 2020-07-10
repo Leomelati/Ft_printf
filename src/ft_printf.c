@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/16 23:37:09 by user42            #+#    #+#             */
-/*   Updated: 2020/07/10 07:22:47 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/10 07:26:08 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -325,30 +325,26 @@ void	print_p_specifier(t_parameters *info, va_list ap)
 	int		spacesToPrint;
 	char	charToPrint;
 
-	if ((ptr = (size_t)va_arg(ap, void *)))
-	{
-		charToPrint = (info->zero == TRUE) ? '0' : ' ';
-		if (info->precision == MISSING)
-			len = ft_hexlen(ptr) + 1;
-		else
-			len = info->precision;
-		if (len >= info->width)
-			spacesToPrint = 0;
-		else
-			spacesToPrint = info->width - len;
-		i = 0;
-		if (info->leftJustify == FALSE)
-			while (i++ < spacesToPrint)
-				write(1, &charToPrint, 1);
-		ft_putstr_fd("0x", 1);
-		ft_putnbr_hex_lower(ptr);
-		i = 0;
-		if (info->leftJustify == TRUE)
-			while (i++ < spacesToPrint)
-				write(1, &charToPrint, 1);
-	}
+	ptr = (size_t)va_arg(ap, void *);
+	charToPrint = (info->zero == TRUE) ? '0' : ' ';
+	if (info->precision == MISSING)
+		len = ft_hexlen(ptr) + 1;
 	else
-		ft_putstr_fd("0x0", 1);
+		len = info->precision;
+	if (len >= info->width)
+		spacesToPrint = 0;
+	else
+		spacesToPrint = info->width - len;
+	i = 0;
+	if (info->leftJustify == FALSE)
+		while (i++ < spacesToPrint)
+			write(1, &charToPrint, 1);
+	ft_putstr_fd("0x", 1);
+	(!ptr) ? ft_putstr_fd("0", 1) : ft_putnbr_hex_lower(ptr);
+	i = 0;
+	if (info->leftJustify == TRUE)
+		while (i++ < spacesToPrint)
+			write(1, &charToPrint, 1);
 }
 
 void	print_percentage_specifier(t_parameters *info)
