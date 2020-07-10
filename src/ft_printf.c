@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/16 23:37:09 by user42            #+#    #+#             */
-/*   Updated: 2020/07/10 05:02:08 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/10 05:32:39 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -351,25 +351,48 @@ void	print_p_specifier(t_parameters *info, va_list ap)
 		ft_putstr_fd("(nil)", 1);
 }
 
+void	print_percentage_specifier(t_parameters *info)
+{
+	int		i;
+	int		len;
+	int		spacesToPrint;
+
+	if (1 >= info->width)
+		spacesToPrint = 0;
+	else
+		spacesToPrint = info->width - 1;
+	i = 0;
+	if (info->leftJustify == FALSE)
+		while (i++ < spacesToPrint)
+			write(1, " ", 1);
+	write(1, "%%", 1);
+	i = 0;	
+	if (info->leftJustify == TRUE)
+		while (i++ < spacesToPrint)
+			write(1, " ", 1);
+}
+
 void	mount_result(t_parameters *info, va_list ap)
 {
-	if (info->format[info->i] == 'c')
+	char c;
+
+	c = info->format[info->i];
+	if (c == 'c')
 		print_c_specifier(info, ap);
-	else if (info->format[info->i] == 's')
+	else if (c == 's')
 		print_s_specifier(info, ap);
-	else if ((info->format[info->i] == 'd') ||
-		(info->format[info->i] == 'i'))
+	else if ((c == 'd') || (c == 'i'))
 		print_d_specifier(info, ap);
-	else if (info->format[info->i] == 'u')
+	else if (c == 'u')
 		print_u_specifier(info, ap);
-	else if (info->format[info->i] == 'x')
+	else if (c == 'x')
 		print_x_specifier(info, ap);
-	else if (info->format[info->i] == 'X')
+	else if (c == 'X')
 		print_X_specifier(info, ap);
-	else if (info->format[info->i] == 'p')
+	else if (c == 'p')
 		print_p_specifier(info, ap);
-	else if (info->format[info->i] == '%')
-		write(1, "%%", 1);
+	else if (c == '%')
+		print_percentage_specifier(info);
 }
 
 int		ft_printf(const char *format, ...)
