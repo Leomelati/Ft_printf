@@ -6,16 +6,17 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 08:03:06 by lmartins          #+#    #+#             */
-/*   Updated: 2020/07/10 10:00:06 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/10 10:17:00 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	print_negative_signal(char *ptr)
+char	*print_negative_signal(char *ptr)
 {
 	write(1, "-", 1);
 	ptr++;
+	return (ptr);
 }
 
 int		adjust_width_precision(int len, char *ptr, t_parameters *info)
@@ -30,7 +31,6 @@ int		adjust_width_precision(int len, char *ptr, t_parameters *info)
 void	print_d_specifier(t_parameters *info, va_list ap)
 {
 	char	*ptr;
-	int		i;
 	int		len;
 	int		spacestoprint;
 	char	chartoprint;
@@ -43,15 +43,17 @@ void	print_d_specifier(t_parameters *info, va_list ap)
 	if (info->signal == TRUE)
 		write(1, "+", 1);
 	if ((*ptr == '-') && (info->zero == TRUE) && (info->precision == MISSING))
-		print_negative_signal(ptr);
+		ptr = print_negative_signal(ptr);
 	justify_padding(spacestoprint, chartoprint, info, FALSE);
 	if ((*ptr == '-') && (info->precision != MISSING))
-		print_negative_signal(ptr);
+		ptr = print_negative_signal(ptr);
 	if ((info->precision > 0) && (info->precision >= len))
 		padding((info->precision - len), '0');
-	i = 0;
-	while ((ptr[i] != '\0') && (info->precision != 0))
-		write(1, &ptr[i++], 1);
+	while ((*ptr != '\0') && (info->precision != 0))
+	{
+		write(1, ptr, 1);
+		ptr++;
+	}
 	justify_padding(spacestoprint, chartoprint, info, TRUE);
 }
 
