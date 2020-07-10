@@ -6,7 +6,7 @@
 #    By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/24 10:59:55 by lmartins          #+#    #+#              #
-#    Updated: 2020/07/10 05:52:28 by lmartins         ###   ########.fr        #
+#    Updated: 2020/07/10 09:56:20 by lmartins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,8 @@ Libft/ft_intlen.c Libft/ft_itoa.c Libft/ft_hexlen.c Libft/ft_itoa_uns.c
 TEST_FLAGS = -g
 
 SRC_DIR = src/
-SRC_FILES = ft_printf.c
+SRC_FILES = ft_printf.c hexadecimal.c numbers.c parameters.c strings.c \
+utils.c
 SRC = $(addprefix $(SRC_DIR), $(SRC_FILES))
 
 OBJ_DIR = src/obj/
@@ -26,7 +27,6 @@ OBJ_FILES = $(SRC:.c=.o)
 OBJ = $(addprefix $(OBJ_DIR), $(notdir $(OBJ_FILES)))
 
 CC = gcc -Wall -Wextra -Werror
-# CC = gcc
 
 NAME = libftprintf.a
 
