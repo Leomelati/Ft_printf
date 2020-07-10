@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 00:48:27 by lmartins          #+#    #+#             */
-/*   Updated: 2020/07/07 07:35:12 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/10 08:46:58 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 
 # include "../Libft/libft.h"
 # include <stdarg.h>
-# include <stdio.h>
 
 /*
 ** Struct
@@ -49,21 +48,48 @@ typedef struct	s_parameters
 # define SPECIFIERS "cspdiuxX%"
 
 /*
-** Flag Zero functions
-*/
-
-int				flag_zero_hex_lower(unsigned int size, va_list ap);
-int				flag_zero_hex(unsigned int size, va_list ap);
-int				flag_zero_int(unsigned int size, va_list ap);
-int				flag_zero_uns(unsigned int size, va_list ap);
-char			*flag_zero(char *format, va_list ap);
-
-/*
 ** Printf Functions
 */
 
-void			check_flag(t_parameters *info);
-void			check_conversion(t_parameters *info);
-int				ft_printf(const char *format, ...);
+void	start_infos(t_parameters *info);
+void	mount_result(t_parameters *info, va_list ap);
+int		ft_printf(const char *format, ...);
+
+/*
+** Parameters Functions
+*/
+
+void	check_flag(t_parameters *info);
+void	check_width(t_parameters *info, va_list ap);
+void	check_precision(t_parameters *info, va_list ap);
+
+/*
+** Hexadecimal Functions
+*/
+
+void	print_x_specifier(t_parameters *info, va_list ap);
+void	print_upper_x_specifier(t_parameters *info, va_list ap);
+void	print_p_specifier(t_parameters *info, va_list ap);
+
+/*
+** Numbers Functions
+*/
+
+void	print_d_specifier(t_parameters *info, va_list ap);
+void	print_u_specifier(t_parameters *info, va_list ap);
+
+/*
+** Strings Functions
+*/
+
+void	print_c_specifier(t_parameters *info, va_list ap);
+void	print_s_specifier(t_parameters *info, va_list ap);
+void	print_percentage_specifier(t_parameters *info);
+
+/*
+** Utils Functions
+*/
+
+void	padding(int spacestoprint, char chartoprint);
 
 #endif
