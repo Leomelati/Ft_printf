@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/21 03:11:04 by lmartins          #+#    #+#             */
-/*   Updated: 2020/07/10 05:38:03 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/10 05:41:09 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int main()
 	// int negative_int_test = -42;
 	// unsigned int unsigned_test = 4294967295u;
 
-	ft_printf("Printm: \"%05%\"\n");
-	printf("Printf: \"%05%\"\n");
+	ft_printf("Printm: \"%-05%\"\n");
+	printf("Printf: \"%-05%\"\n");
 	ft_printf("\n");
 	return (0);
 }
