@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 08:04:16 by lmartins          #+#    #+#             */
-/*   Updated: 2020/07/10 09:47:35 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/10 10:00:32 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	print_x_specifier(t_parameters *info, va_list ap)
 	spacestoprint = determine_spaces(len, info);
 	justify_padding(spacestoprint, chartoprint, info, FALSE);
 	if ((info->precision > 0) && (info->precision >= len))
-		padding((info->precision - len), "0");
+		padding((info->precision - len), '0');
 	if (info->precision != 0)
 	{
 		if (ptr == 0)
@@ -53,7 +53,7 @@ void	print_upper_x_specifier(t_parameters *info, va_list ap)
 	spacestoprint = determine_spaces(len, info);
 	justify_padding(spacestoprint, chartoprint, info, FALSE);
 	if ((info->precision > 0) && (info->precision >= len))
-		padding((info->precision - len), "0");
+		padding((info->precision - len), '0');
 	if (info->precision != 0)
 	{
 		if (ptr == 0)
@@ -67,7 +67,6 @@ void	print_upper_x_specifier(t_parameters *info, va_list ap)
 void	print_p_specifier(t_parameters *info, va_list ap)
 {
 	size_t	ptr;
-	int		i;
 	int		len;
 	int		spacestoprint;
 	char	chartoprint;

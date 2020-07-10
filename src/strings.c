@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 08:01:34 by lmartins          #+#    #+#             */
-/*   Updated: 2020/07/10 09:33:57 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/10 10:03:10 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,12 @@
 void	print_c_specifier(t_parameters *info, va_list ap)
 {
 	char	*ptr;
-	int		i;
 
-	i = 0;
 	ptr = va_arg(ap, char *);
 	info->width--;
-	justify_padding(info->width, " ", info, FALSE);
+	justify_padding(info->width, ' ', info, FALSE);
 	write(1, &ptr, 1);
-	justify_padding(info->width, " ", info, TRUE);
+	justify_padding(info->width, ' ', info, TRUE);
 }
 
 void	print_s_specifier(t_parameters *info, va_list ap)
@@ -41,11 +39,11 @@ void	print_s_specifier(t_parameters *info, va_list ap)
 		spacestoprint = 0;
 	else
 		spacestoprint = info->width - len;
-	justify_padding(spacestoprint, " ", info, FALSE);
+	justify_padding(spacestoprint, ' ', info, FALSE);
 	i = 0;
 	while ((i < len) && (ptr[i] != '\0'))
 		write(1, &ptr[i++], 1);
-	justify_padding(spacestoprint, " ", info, TRUE);
+	justify_padding(spacestoprint, ' ', info, TRUE);
 }
 
 void	print_percentage_specifier(t_parameters *info)

@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 08:03:06 by lmartins          #+#    #+#             */
-/*   Updated: 2020/07/10 09:45:25 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/10 10:00:06 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	print_d_specifier(t_parameters *info, va_list ap)
 	if ((*ptr == '-') && (info->precision != MISSING))
 		print_negative_signal(ptr);
 	if ((info->precision > 0) && (info->precision >= len))
-		padding((info->precision - len), "0");
+		padding((info->precision - len), '0');
 	i = 0;
 	while ((ptr[i] != '\0') && (info->precision != 0))
 		write(1, &ptr[i++], 1);
@@ -73,7 +73,7 @@ void	print_u_specifier(t_parameters *info, va_list ap)
 		write(1, "+", 1);
 	justify_padding(spacestoprint, chartoprint, info, FALSE);
 	if ((info->precision > 0) && (info->precision >= len))
-		padding((info->precision - len), "0");
+		padding((info->precision - len), '0');
 	i = 0;
 	while ((ptr[i] != '\0') && (info->precision != 0))
 		write(1, &ptr[i++], 1);
