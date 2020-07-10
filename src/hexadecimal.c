@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 08:04:16 by lmartins          #+#    #+#             */
-/*   Updated: 2020/07/11 00:42:48 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/11 00:53:34 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	adapted_putnbr_hex(size_t nbr, t_parameters *info)
 			mod += '0';
 		else
 			mod += 55;
-		ft_putnbr_hex(nbr / 16);
+		adapted_putnbr_hex(nbr / 16, info);
 		write(1, &mod, 1);
 		info->result++;
 	}
