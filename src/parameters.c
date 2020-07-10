@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 08:06:36 by lmartins          #+#    #+#             */
-/*   Updated: 2020/07/10 08:07:54 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/10 09:34:00 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	check_flag(t_parameters *info)
 	}
 	if (info->format[info->i] == '-')
 	{
-		info->leftJustify = TRUE;
+		info->leftjustify = TRUE;
 		info->i++;
 	}
 	if (info->format[info->i] == ' ')
@@ -46,7 +46,7 @@ void	check_width(t_parameters *info, va_list ap)
 		if (info->width < 0)
 		{
 			info->width *= -1;
-			info->leftJustify = TRUE;
+			info->leftjustify = TRUE;
 			info->zero = FALSE;
 		}
 		info->i++;

@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/16 23:37:09 by user42            #+#    #+#             */
-/*   Updated: 2020/07/10 08:07:59 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/10 09:52:26 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,23 @@ void	start_infos(t_parameters *info)
 {
 	info->signal = FALSE;
 	info->zero = FALSE;
-	info->leftJustify = FALSE;
+	info->leftjustify = FALSE;
 	info->width = FALSE;
 	info->precision = MISSING;
 	info->specifier = FALSE;
 	info->result = NULL;
+}
+
+void	prepare_infos(t_parameters *info, va_list ap)
+{
+	if (ft_strchr(FLAGS, info->format[info->i]))
+		check_flag(info);
+	if ((ft_isdigit(info->format[info->i])) ||
+			(info->format[info->i] == '*'))
+		check_width(info, ap);
+	if (info->format[info->i] == '.')
+		check_precision(info, ap);
+	info->specifier = info->format[info->i];
 }
 
 void	mount_result(t_parameters *info, va_list ap)
@@ -60,14 +72,7 @@ int		ft_printf(const char *format, ...)
 		{
 			info.i++;
 			start_infos(&info);
-			if (ft_strchr(FLAGS, info.format[info.i]))
-				check_flag(&info);
-			if ((ft_isdigit(info.format[info.i])) ||
-					(info.format[info.i] == '*'))
-				check_width(&info, ap);
-			if (info.format[info.i] == '.')
-				check_precision(&info, ap);
-			info.specifier = info.format[info.i];
+			prepare_infos(&info, ap);
 			mount_result(&info, ap);
 		}
 		else
