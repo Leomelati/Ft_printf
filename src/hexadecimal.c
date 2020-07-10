@@ -6,11 +6,45 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 08:04:16 by lmartins          #+#    #+#             */
-/*   Updated: 2020/07/10 10:21:04 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/11 00:42:48 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+void	adapted_putnbr_hex_lower(size_t nbr, t_parameters *info)
+{
+	size_t	mod;
+
+	if (nbr > 0)
+	{
+		mod = nbr % 16;
+		if (mod < 10)
+			mod += '0';
+		else
+			mod += ('a' - 10);
+		adapted_putnbr_hex_lower(nbr / 16, info);
+		write(1, &mod, 1);
+		info->result++;
+	}
+}
+
+void	adapted_putnbr_hex(size_t nbr, t_parameters *info)
+{
+	size_t mod;
+
+	if (nbr > 0)
+	{
+		mod = nbr % 16;
+		if (mod < 10)
+			mod += '0';
+		else
+			mod += 55;
+		ft_putnbr_hex(nbr / 16);
+		write(1, &mod, 1);
+		info->result++;
+	}
+}
 
 void	print_x_specifier(t_parameters *info, va_list ap)
 {
@@ -27,13 +61,16 @@ void	print_x_specifier(t_parameters *info, va_list ap)
 	spacestoprint = determine_spaces(len, info);
 	justify_padding(spacestoprint, chartoprint, info, FALSE);
 	if ((info->precision > 0) && (info->precision >= len))
-		padding((info->precision - len), '0');
+		padding((info->precision - len), '0', info);
 	if (info->precision != 0)
 	{
 		if (ptr == 0)
+		{
 			write(1, "0", 1);
+			info->result++;
+		}
 		else
-			ft_putnbr_hex_lower(ptr);
+			adapted_putnbr_hex_lower(ptr, info);
 	}
 	justify_padding(spacestoprint, chartoprint, info, TRUE);
 }
@@ -53,13 +90,16 @@ void	print_upper_x_specifier(t_parameters *info, va_list ap)
 	spacestoprint = determine_spaces(len, info);
 	justify_padding(spacestoprint, chartoprint, info, FALSE);
 	if ((info->precision > 0) && (info->precision >= len))
-		padding((info->precision - len), '0');
+		padding((info->precision - len), '0', info);
 	if (info->precision != 0)
 	{
 		if (ptr == 0)
+		{
 			write(1, "0", 1);
+			info->result++;
+		}
 		else
-			ft_putnbr_hex(ptr);
+			adapted_putnbr_hex(ptr, info);
 	}
 	justify_padding(spacestoprint, chartoprint, info, TRUE);
 }
@@ -80,7 +120,8 @@ void	print_p_specifier(t_parameters *info, va_list ap)
 	spacestoprint = (len >= info->width) ? 0 : (info->width - len);
 	(!ptr) ? spacestoprint-- : 0;
 	justify_padding(spacestoprint, chartoprint, info, FALSE);
-	ft_putstr_fd("0x", 1);
-	(!ptr) ? ft_putstr_fd("0", 1) : ft_putnbr_hex_lower(ptr);
+	adapted_putstr_fd("0x", 1, info);
+	(!ptr) ? adapted_putstr_fd("0", 1, info) :
+		adapted_putnbr_hex_lower(ptr, info);
 	justify_padding(spacestoprint, chartoprint, info, TRUE);
 }

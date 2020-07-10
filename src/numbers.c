@@ -6,15 +6,16 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 08:03:06 by lmartins          #+#    #+#             */
-/*   Updated: 2020/07/10 10:17:00 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/11 00:47:16 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*print_negative_signal(char *ptr)
+char	*print_negative_signal(char *ptr, t_parameters *info)
 {
 	write(1, "-", 1);
+	info->result++;
 	ptr++;
 	return (ptr);
 }
@@ -40,18 +41,17 @@ void	print_d_specifier(t_parameters *info, va_list ap)
 	len = ft_strlen(ptr);
 	len = adjust_width_precision(len, ptr, info);
 	spacestoprint = determine_spaces(len, info);
-	if (info->signal == TRUE)
-		write(1, "+", 1);
 	if ((*ptr == '-') && (info->zero == TRUE) && (info->precision == MISSING))
-		ptr = print_negative_signal(ptr);
+		ptr = print_negative_signal(ptr, info);
 	justify_padding(spacestoprint, chartoprint, info, FALSE);
 	if ((*ptr == '-') && (info->precision != MISSING))
-		ptr = print_negative_signal(ptr);
+		ptr = print_negative_signal(ptr, info);
 	if ((info->precision > 0) && (info->precision >= len))
-		padding((info->precision - len), '0');
+		padding((info->precision - len), '0', info);
 	while ((*ptr != '\0') && (info->precision != 0))
 	{
 		write(1, ptr, 1);
+		info->result++;
 		ptr++;
 	}
 	justify_padding(spacestoprint, chartoprint, info, TRUE);
@@ -60,7 +60,6 @@ void	print_d_specifier(t_parameters *info, va_list ap)
 void	print_u_specifier(t_parameters *info, va_list ap)
 {
 	char	*ptr;
-	int		i;
 	int		len;
 	int		spacestoprint;
 	char	chartoprint;
@@ -71,13 +70,14 @@ void	print_u_specifier(t_parameters *info, va_list ap)
 	if ((len > info->precision) && (info->precision != MISSING))
 		info->width--;
 	spacestoprint = determine_spaces(len, info);
-	if (info->signal == TRUE)
-		write(1, "+", 1);
 	justify_padding(spacestoprint, chartoprint, info, FALSE);
 	if ((info->precision > 0) && (info->precision >= len))
-		padding((info->precision - len), '0');
-	i = 0;
-	while ((ptr[i] != '\0') && (info->precision != 0))
-		write(1, &ptr[i++], 1);
+		padding((info->precision - len), '0', info);
+	while ((*ptr != '\0') && (info->precision != 0))
+	{
+		write(1, ptr, 1);
+		info->result++;
+		ptr++;
+	}
 	justify_padding(spacestoprint, chartoprint, info, TRUE);
 }

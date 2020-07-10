@@ -6,11 +6,26 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 08:01:34 by lmartins          #+#    #+#             */
-/*   Updated: 2020/07/10 10:24:02 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/11 00:29:15 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+void	adapted_putstr_fd(char *s, int fd, t_parameters *info)
+{
+	size_t	i;
+
+	if (!(s))
+		return ;
+	i = 0;
+	while (s[i] != '\0')
+	{
+		write(fd, &s[i], 1);
+		info->result++;
+		i++;
+	}
+}
 
 void	print_c_specifier(t_parameters *info, va_list ap)
 {
@@ -20,6 +35,7 @@ void	print_c_specifier(t_parameters *info, va_list ap)
 	info->width--;
 	justify_padding(info->width, ' ', info, FALSE);
 	write(1, &ptr, 1);
+	info->result++;
 	justify_padding(info->width, ' ', info, TRUE);
 }
 
@@ -42,7 +58,10 @@ void	print_s_specifier(t_parameters *info, va_list ap)
 	justify_padding(spacestoprint, ' ', info, FALSE);
 	i = 0;
 	while ((i < len) && (ptr[i] != '\0'))
+	{
 		write(1, &ptr[i++], 1);
+		info->result++;
+	}
 	justify_padding(spacestoprint, ' ', info, TRUE);
 }
 
@@ -61,5 +80,6 @@ void	print_percentage_specifier(t_parameters *info)
 		spacestoprint = info->width - 1;
 	justify_padding(spacestoprint, chartoprint, info, FALSE);
 	write(1, "%%", 1);
+	info->result++;
 	justify_padding(spacestoprint, chartoprint, info, TRUE);
 }

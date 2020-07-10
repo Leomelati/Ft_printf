@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 08:45:21 by lmartins          #+#    #+#             */
-/*   Updated: 2020/07/10 09:45:26 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/11 00:16:25 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,23 @@ void	justify_padding(int spaces, char c, t_parameters *info, int option)
 	{
 		i = 0;
 		while (i++ < spaces)
+		{
 			write(1, &c, 1);
+			info->result++;
+		}
 	}
 }
 
-void	padding(int spaces, char c)
+void	padding(int spaces, char c, t_parameters *info)
 {
 	int i;
 
 	i = 0;
 	while (i++ < spaces)
+	{
 		write(1, &c, 1);
+		info->result++;
+	}
 }
 
 char	determine_char(t_parameters *info)

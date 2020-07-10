@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/16 23:37:09 by user42            #+#    #+#             */
-/*   Updated: 2020/07/10 09:52:26 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/11 00:47:19 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,21 @@
 
 void	start_infos(t_parameters *info)
 {
-	info->signal = FALSE;
 	info->zero = FALSE;
 	info->leftjustify = FALSE;
 	info->width = FALSE;
 	info->precision = MISSING;
 	info->specifier = FALSE;
-	info->result = NULL;
+	info->result = FALSE;
+}
+
+void	restart_infos(t_parameters *info)
+{
+	info->zero = FALSE;
+	info->leftjustify = FALSE;
+	info->width = FALSE;
+	info->precision = MISSING;
+	info->specifier = FALSE;
 }
 
 void	prepare_infos(t_parameters *info, va_list ap)
@@ -66,19 +74,23 @@ int		ft_printf(const char *format, ...)
 	va_start(ap, format);
 	info.format = format;
 	info.i = 0;
+	start_infos(&info);
 	while (info.format[info.i] != '\0')
 	{
 		if (info.format[info.i] == '%')
 		{
 			info.i++;
-			start_infos(&info);
+			restart_infos(&info);
 			prepare_infos(&info, ap);
 			mount_result(&info, ap);
 		}
 		else
+		{
 			write(1, &info.format[info.i], 1);
+			info.result++;
+		}
 		info.i++;
 	}
 	va_end(ap);
-	return (1);
+	return (info.result);
 }
