@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 08:01:34 by lmartins          #+#    #+#             */
-/*   Updated: 2020/07/10 10:03:10 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/10 10:24:02 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	print_percentage_specifier(t_parameters *info)
 		spacestoprint = 0;
 	else
 		spacestoprint = info->width - 1;
-	justify_padding(spacestoprint, chartoprint, info, TRUE);
+	justify_padding(spacestoprint, chartoprint, info, FALSE);
 	write(1, "%%", 1);
 	justify_padding(spacestoprint, chartoprint, info, TRUE);
 }
