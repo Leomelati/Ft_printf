@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/16 23:37:09 by user42            #+#    #+#             */
-/*   Updated: 2020/07/10 07:27:57 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/10 07:34:52 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,15 +108,7 @@ void	print_s_specifier(t_parameters *info, va_list ap)
 	int		spacesToPrint;
 
 	ptr = va_arg(ap, char *);
-	if (!ptr)
-	{
-		ptr = "(null)";
-		if (info->precision > MISSING)
-			info->precision = (info->precision >= 6) ? 6 : FALSE;
-		else
-			info->precision = 6;
-		
-	}
+	(!ptr) ? ptr = "(null)" : FALSE;
 	len = ft_strlen(ptr);
 	if ((info->precision < len) && (info->precision != MISSING))
 		len = info->precision;
