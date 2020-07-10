@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/16 23:37:09 by user42            #+#    #+#             */
-/*   Updated: 2020/07/10 07:26:08 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/10 07:27:57 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -335,6 +335,7 @@ void	print_p_specifier(t_parameters *info, va_list ap)
 		spacesToPrint = 0;
 	else
 		spacesToPrint = info->width - len;
+	(!ptr) ? spacesToPrint-- : 0;
 	i = 0;
 	if (info->leftJustify == FALSE)
 		while (i++ < spacesToPrint)
