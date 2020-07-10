@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/16 23:37:09 by user42            #+#    #+#             */
-/*   Updated: 2020/07/07 09:11:18 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/10 05:02:08 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,11 @@ void	check_flag(t_parameters *info)
 	if (info->format[info->i] == '-')
 	{
 		info->leftJustify = TRUE;
+		info->i++;
+	}
+	if (info->format[info->i] == ' ')
+	{
+		write(1, " ", 1);
 		info->i++;
 	}
 	if (ft_strchr(FLAGS, info->format[info->i]))
