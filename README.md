@@ -1,4 +1,4 @@
-# Printf - 42 São Paulo (WIP)
+# Printf - 42 São Paulo
 ***Because putnbr and putstr aren’t enough***
 
 One of the first projects is the recoding of the Printf function because 42 Students can't use a huge part of the built-in functions that C provides. The reimplementation will cover the following points:
@@ -39,9 +39,9 @@ The library that contains the ft_printf function will be ready to use after the 
 Don't jump into the Libft folder! It is the first project that we made at 42 School and it contains a lot of functions that we need to recode to use it during other projects. To avoid confusion I will advise you to just see the functions that are used in this project that are listed below.
 
 - [Ft_atoi](https://github.com/Leomelati/Ft_printf/blob/master/Libft/ft_atoi.c)
+- [Ft_itoa](https://github.com/Leomelati/Ft_printf/blob/master/Libft/ft_itoa.c)
+- [Ft_itoa_uns](https://github.com/Leomelati/Ft_printf/blob/master/Libft/ft_itoa_uns.c)
+- [Ft_strchr](https://github.com/Leomelati/Ft_printf/blob/master/Libft/ft_strchr.c)
 - [Ft_isdigit](https://github.com/Leomelati/Ft_printf/blob/master/Libft/ft_isdigit.c)
-- [Ft_putnbr_fd](https://github.com/Leomelati/Ft_printf/blob/master/Libft/ft_putnbr_fd.c)
-- [Ft_putnbr_hex](https://github.com/Leomelati/Ft_printf/blob/master/Libft/ft_putnbr_hex.c)
-- [Ft_putnbr_hex_lower](https://github.com/Leomelati/Ft_printf/blob/master/Libft/ft_putnbr_hex_lower.c)
-- [Ft_putnbr_uns_fd](https://github.com/Leomelati/Ft_printf/blob/master/Libft/ft_putnbr_uns_fd.c)
-- [Ft_putstr_fd](https://github.com/Leomelati/Ft_printf/blob/master/Libft/ft_putstr_fd.c)
+- [Ft_hexlen](https://github.com/Leomelati/Ft_printf/blob/master/Libft/ft_hexlen.c)
+- [Ft_strlen](https://github.com/Leomelati/Ft_printf/blob/master/Libft/ft_strlen.c)
