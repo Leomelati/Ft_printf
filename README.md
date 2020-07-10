@@ -25,8 +25,6 @@ One of the first projects is the recoding of the Printf function because 42 Stud
 |--------|-------------------------------------------------------------  |
 | -      | Left-justify within the given field width                |
 | 0      | Left-pads the number with zeroes (0) instead of spaces   |
-| +      | Preceed the result with a "+" for positive numbers       |
-| #      | Alternate input method for placeholder                   |
 
 - It will manage minimum field width with all conversions
 
