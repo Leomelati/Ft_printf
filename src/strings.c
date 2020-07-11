@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 08:01:34 by lmartins          #+#    #+#             */
-/*   Updated: 2020/07/11 02:23:09 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/11 02:30:46 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	print_s_specifier(t_parameters *info, va_list ap)
 		write(1, &ptr[i++], 1);
 		info->result++;
 	}
-	justify_padding(spacestoprint, chartoprint, info, TRUE);
+	justify_padding(spacestoprint, " ", info, TRUE);
 }
 
 void	print_percentage_specifier(t_parameters *info)
