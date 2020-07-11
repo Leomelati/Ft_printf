@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 08:04:16 by lmartins          #+#    #+#             */
-/*   Updated: 2020/07/11 05:36:04 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/11 05:53:05 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,15 +106,15 @@ void	print_upper_x_specifier(t_parameters *info, va_list ap)
 
 void	print_p_specifier(t_parameters *info, va_list ap)
 {
-	size_t	ptr;
+	char	*ptr;
 	int		len;
 	int		spacestoprint;
 	char	chartoprint;
 
-	ptr = (size_t)va_arg(ap, void *);
+	ptr = ft_itoa_base((size_t)va_arg(ap, void *), 16);
 	chartoprint = (info->zero == TRUE) ? '0' : ' ';
-	len = ft_hexlen(ptr) + 1;
-	spacestoprint = (info->width - len) - 1;
+	len = ft_strlen(ptr);
+	spacestoprint = info->width - len;
 	if ((info->precision > MISSING) && (info->width > FALSE))
 		spacestoprint++;
 	justify_padding(spacestoprint, chartoprint, info, FALSE);
@@ -124,6 +124,7 @@ void	print_p_specifier(t_parameters *info, va_list ap)
 	if ((!ptr) && (info->precision == MISSING))
 		adapted_putstr_fd("0", 1, info);
 	else
-		adapted_putnbr_hex_lower(ptr, info);
+		adapted_putstr_fd(ptr, 1, info);
 	justify_padding(spacestoprint, chartoprint, info, TRUE);
+	free(ptr);
 }

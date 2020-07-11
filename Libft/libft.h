@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 11:51:35 by lmartins          #+#    #+#             */
-/*   Updated: 2020/07/07 07:35:04 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/11 05:49:57 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,5 +80,6 @@ t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 size_t				ft_intlen(int num);
 size_t				ft_hexlen(size_t nbr);
 char				*ft_itoa_uns(unsigned int num);
+char				*ft_itoa_base(size_t nb, int base);
 
 #endif
