@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 08:04:16 by lmartins          #+#    #+#             */
-/*   Updated: 2020/07/11 05:53:05 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/11 06:17:12 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void	print_p_specifier(t_parameters *info, va_list ap)
 
 	ptr = ft_itoa_base((size_t)va_arg(ap, void *), 16);
 	chartoprint = (info->zero == TRUE) ? '0' : ' ';
-	len = ft_strlen(ptr);
+	len = ft_strlen(ptr) + 2;
 	spacestoprint = info->width - len;
 	if ((info->precision > MISSING) && (info->width > FALSE))
 		spacestoprint++;
