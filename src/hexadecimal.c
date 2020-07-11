@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 08:04:16 by lmartins          #+#    #+#             */
-/*   Updated: 2020/07/11 04:57:17 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/11 04:57:58 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void	print_p_specifier(t_parameters *info, va_list ap)
 
 	ptr = (size_t)va_arg(ap, void *);
 	chartoprint = (info->zero == TRUE) ? '0' : ' ';
-	len = (ptr) ? ft_hexlen(ptr) + 1 : 2;
+	len = (ptr) ? ft_hexlen(ptr) + 1 : 3;
 	if (ptr)
 		len = ft_hexlen(ptr) + 1;
 	else if ((!ptr) && (info->width == FALSE))
