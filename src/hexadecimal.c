@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 08:04:16 by lmartins          #+#    #+#             */
-/*   Updated: 2020/07/11 02:46:56 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/11 02:50:10 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,11 +113,9 @@ void	print_p_specifier(t_parameters *info, va_list ap)
 
 	ptr = (size_t)va_arg(ap, void *);
 	chartoprint = (info->zero == TRUE) ? '0' : ' ';
-	len = ft_hexlen(ptr) + 1;
+	len = (ptr) ? ft_hexlen(ptr) + 1 : 3;
 	spacestoprint = (len >= info->width) ? 0 : (info->width - len);
-	if ((!ptr) && (info->precision != MISSING))
-		spacestoprint -= 2;
-	else if ((!ptr) && (info->precision == MISSING))
+	if ((!ptr) && (info->precision == MISSING))
 		spacestoprint--;
 	justify_padding(spacestoprint, chartoprint, info, FALSE);
 	adapted_putstr_fd("0x", 1, info);
