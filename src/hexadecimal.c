@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 08:04:16 by lmartins          #+#    #+#             */
-/*   Updated: 2020/07/11 04:46:43 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/11 04:48:37 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,8 +123,8 @@ void	print_p_specifier(t_parameters *info, va_list ap)
 	spacestoprint = (len >= info->width) ? 0 : (info->width - len);
 	if ((info->precision < len) && (info->width < len))
 		spacestoprint--;
-	else if ((info->precision < len) && (info->width < len))
-		spacestoprint -= 2;
+	else if ((info->precision < len) && (info->width > len))
+		spacestoprint--;
 	else if ((info->precision > MISSING) && (info->width > FALSE))
 		spacestoprint++;
 	justify_padding(spacestoprint, chartoprint, info, FALSE);
