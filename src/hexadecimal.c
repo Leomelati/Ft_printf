@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 08:04:16 by lmartins          #+#    #+#             */
-/*   Updated: 2020/07/11 02:39:44 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/11 02:40:46 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,6 @@ void	print_p_specifier(t_parameters *info, va_list ap)
 	else
 		len = info->precision;
 	spacestoprint = (len >= info->width) ? 0 : (info->width - len);
-	(!ptr) ? spacestoprint -= 2 : 0;
 	if ((!ptr) && (info->precision != MISSING))
 		spacestoprint -= 2;
 	else if ((!ptr) && (info->precision == MISSING))
