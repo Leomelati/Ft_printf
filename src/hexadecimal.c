@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 08:04:16 by lmartins          #+#    #+#             */
-/*   Updated: 2020/07/11 06:49:19 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/11 06:51:12 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void	print_p_specifier(t_parameters *info, va_list ap)
 
 	ptr = ft_itoa_base((size_t)va_arg(ap, void *), 16);
 	chartoprint = determine_char(info);
-	len = (*ptr == '0' && info->precision == 0) ? 0 : ft_strlen(ptr);
+	len = (*ptr == '0' && info->precision <= 0) ? 0 : ft_strlen(ptr);
 	spacestoprint = (info->precision > len) ? info->precision : len;
 	justify_padding(spacestoprint, chartoprint, info, FALSE);
 	adapted_putstr_fd("0x", 1, info);
