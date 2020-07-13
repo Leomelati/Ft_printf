@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/16 23:37:09 by user42            #+#    #+#             */
-/*   Updated: 2020/07/11 00:47:19 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/13 07:42:57 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@ void	restart_infos(t_parameters *info)
 
 void	prepare_infos(t_parameters *info, va_list ap)
 {
+	int temp;
+
+	temp = info->i;
 	if (ft_strchr(FLAGS, info->format[info->i]))
 		check_flag(info);
 	if ((ft_isdigit(info->format[info->i])) ||
@@ -41,6 +44,8 @@ void	prepare_infos(t_parameters *info, va_list ap)
 	if (info->format[info->i] == '.')
 		check_precision(info, ap);
 	info->specifier = info->format[info->i];
+	if (!(ft_strchr(SPECIFIERS, info->specifier)))
+		info->i = temp - 1;
 }
 
 void	mount_result(t_parameters *info, va_list ap)
@@ -82,13 +87,13 @@ int		ft_printf(const char *format, ...)
 			info.i++;
 			restart_infos(&info);
 			prepare_infos(&info, ap);
-			mount_result(&info, ap);
+			if (ft_strchr(SPECIFIERS, info.specifier))
+				mount_result(&info, ap);
+			else
+				adapted_putchar_fd(info.format[info.i], 1, &info);
 		}
 		else
-		{
-			write(1, &info.format[info.i], 1);
-			info.result++;
-		}
+			adapted_putchar_fd(info.format[info.i], 1, &info);
 		info.i++;
 	}
 	va_end(ap);

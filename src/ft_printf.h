@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 00:48:27 by lmartins          #+#    #+#             */
-/*   Updated: 2020/07/12 23:43:17 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/13 07:31:27 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ void			print_u_specifier(t_parameters *info, va_list ap);
 */
 
 void			adapted_putstr_fd(char *s, int fd, t_parameters *info);
+void			adapted_putchar_fd(char c, int fd, t_parameters *info);
 void			print_c_specifier(t_parameters *info, va_list ap);
 void			print_s_specifier(t_parameters *info, va_list ap);
 void			print_percentage_specifier(t_parameters *info);
