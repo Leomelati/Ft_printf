@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 08:04:16 by lmartins          #+#    #+#             */
-/*   Updated: 2020/07/11 07:01:45 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/13 06:31:07 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,19 +114,21 @@ void	print_p_specifier(t_parameters *info, va_list ap)
 
 	ptr = ft_itoa_base((size_t)va_arg(ap, void *), 16);
 	chartoprint = determine_char(info);
-	len = (*ptr == '0' && info->precision > 0) ? info->precision : 0;
-	spacestoprint = info->width - len;
-	spacestoprint -= (info->precision != MISSING) ? info->precision : 0;
-	justify_padding(spacestoprint, chartoprint, info, FALSE);
-	adapted_putstr_fd("0x", 1, info);
-	if ((info->precision > 0) && (info->precision >= len))
-		padding((info->precision - len), '0', info);
-	i = 0;
-	while ((i < len) && (ptr[i] != '\0'))
+	len = (*ptr == '0' && info->precision == 0) ? 0 : ft_strlen(ptr);
+	spacestoprint = (info->precision > len) ? info->precision : len;
+	spacestoprint -= len;
+	if (info->leftjustify == TRUE)
 	{
-		write(1, &ptr[i++], 1);
-		info->result++;
+		adapted_putstr_fd("0x", 1, info);
+		justify_padding(spacestoprint, chartoprint, info, TRUE);
+		(len == 0 && *ptr == '0') ? 0 : adapted_putstr_fd(ptr, 1, info);
 	}
-	justify_padding(spacestoprint, chartoprint, info, TRUE);
+	padding(info->width - 2, chartoprint, info);
+	if (info->leftjustify == FALSE)
+	{
+		adapted_putstr_fd("0x", 1, info);
+		justify_padding(spacestoprint, chartoprint, info, FALSE);
+		(len == 0 && *ptr == '0') ? 0 : adapted_putstr_fd(ptr, 1, info);
+	}
 	free(ptr);
 }
