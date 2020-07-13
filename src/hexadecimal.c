@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 08:04:16 by lmartins          #+#    #+#             */
-/*   Updated: 2020/07/13 06:31:07 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/13 06:33:42 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ void	print_p_specifier(t_parameters *info, va_list ap)
 		justify_padding(spacestoprint, chartoprint, info, TRUE);
 		(len == 0 && *ptr == '0') ? 0 : adapted_putstr_fd(ptr, 1, info);
 	}
-	padding(info->width - 2, chartoprint, info);
+	padding(info->width - (2 + len), chartoprint, info);
 	if (info->leftjustify == FALSE)
 	{
 		adapted_putstr_fd("0x", 1, info);
