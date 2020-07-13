@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 08:01:34 by lmartins          #+#    #+#             */
-/*   Updated: 2020/07/13 07:09:54 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/13 07:47:20 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	print_c_specifier(t_parameters *info, va_list ap)
 	ptr = va_arg(ap, char *);
 	info->width--;
 	justify_padding(info->width, ' ', info, FALSE);
-	adapted_putchar_fd(ptr, 1, info);
+	adapted_putchar_fd(*ptr, 1, info);
 	justify_padding(info->width, ' ', info, TRUE);
 }
 
