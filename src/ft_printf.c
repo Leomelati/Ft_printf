@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/16 23:37:09 by user42            #+#    #+#             */
-/*   Updated: 2020/07/14 07:11:16 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/14 08:37:51 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,9 @@ void	prepare_infos(t_parameters *info, va_list ap)
 		check_width(info, ap);
 	if (info->format[info->i] == '.')
 		check_precision(info, ap);
+	(info->format[info->i] == '\0') ? info->i-- : FALSE;
 	info->specifier = info->format[info->i];
-	if (!(ft_strchr(SPECIFIERS, info->specifier)))
+	if (!(ft_strchr(SPECIFIERS, info->format[info->i])))
 		info->i = temp - 1;
 }
 
@@ -67,8 +68,10 @@ void	mount_result(t_parameters *info, va_list ap)
 		print_upper_x_specifier(info, ap);
 	else if (c == 'p')
 		print_p_specifier(info, ap);
-	else if (c == '%')
+	else if ((c == '%') && (info->format[info->i + 1] == '%'))
 		print_percentage_specifier(info);
+	else
+		adapted_putchar_fd(info->format[info->i], 1, info);
 }
 
 int		ft_printf(const char *format, ...)
@@ -87,10 +90,7 @@ int		ft_printf(const char *format, ...)
 			info.i++;
 			restart_infos(&info);
 			prepare_infos(&info, ap);
-			if (ft_strchr(SPECIFIERS, info.specifier))
-				mount_result(&info, ap);
-			else
-				adapted_putchar_fd(info.format[info.i], 1, &info);
+			mount_result(&info, ap);
 		}
 		else
 			adapted_putchar_fd(info.format[info.i], 1, &info);
