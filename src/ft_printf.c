@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/16 23:37:09 by user42            #+#    #+#             */
-/*   Updated: 2020/07/13 07:42:57 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/14 07:11:16 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int		ft_printf(const char *format, ...)
 	start_infos(&info);
 	while (info.format[info.i] != '\0')
 	{
-		if (info.format[info.i] == '%')
+		if (info.format[info.i] == '%' && info.format[info.i + 1])
 		{
 			info.i++;
 			restart_infos(&info);
