@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 08:01:34 by lmartins          #+#    #+#             */
-/*   Updated: 2020/07/13 07:57:50 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/14 09:13:17 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,19 +79,32 @@ void	print_s_specifier(t_parameters *info, va_list ap)
 
 void	print_percentage_specifier(t_parameters *info)
 {
+	int		i;
 	char	chartoprint;
 	int		spacestoprint;
 
-	if ((info->zero == TRUE) && (info->leftjustify) == FALSE)
-		chartoprint = '0';
+	i = info->i;
+	while ((ft_strchr(SPECIFIERS, info->format[i])) &&
+		!(ft_isalpha(info->format[i])) && info->format[i + 1])
+		i++;
+	if ((info->format[i] == '%') && (info->format[info->i] == '%'))
+	{
+		if ((info->zero == TRUE) && (info->leftjustify) == FALSE)
+			chartoprint = '0';
+		else
+			chartoprint = ' ';
+		if (1 >= info->width)
+			spacestoprint = 0;
+		else
+			spacestoprint = info->width - 1;
+		justify_padding(spacestoprint, chartoprint, info, FALSE);
+		write(1, "%%", 1);
+		info->result++;
+		justify_padding(spacestoprint, chartoprint, info, TRUE);
+	}
 	else
-		chartoprint = ' ';
-	if (1 >= info->width)
-		spacestoprint = 0;
-	else
-		spacestoprint = info->width - 1;
-	justify_padding(spacestoprint, chartoprint, info, FALSE);
-	write(1, "%%", 1);
-	info->result++;
-	justify_padding(spacestoprint, chartoprint, info, TRUE);
+	{	
+		write(1, "%%", 1);
+		info->result++;
+	}
 }
