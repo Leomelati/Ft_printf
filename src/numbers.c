@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 08:03:06 by lmartins          #+#    #+#             */
-/*   Updated: 2020/07/14 09:39:05 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/14 09:40:19 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	print_d_specifier(t_parameters *info, va_list ap)
 		i = print_negative_signal(ptr, info, i);
 	if ((info->precision > 0) && (info->precision >= len))
 		padding((info->precision - len), '0', info);
-	while ((ptr[i] != '\0') && (info->precision >= 0))
+	while ((ptr[i] != '\0') && (info->precision != 0))
 	{
 		write(1, &ptr[i], 1);
 		info->result++;
