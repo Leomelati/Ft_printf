@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 08:03:06 by lmartins          #+#    #+#             */
-/*   Updated: 2020/07/15 09:27:17 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/15 09:40:30 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,6 @@ int		print_negative_signal(char *ptr, t_parameters *info, int i)
 	return (i);
 }
 
-int		adjust_width_precision(int len, char *ptr, t_parameters *info)
-{
-	(*ptr == '-') ? info->width-- : 0;
-	return (len);
-}
-
 void	print_d_specifier(t_parameters *info, va_list ap)
 {
 	char	*ptr;
@@ -37,7 +31,6 @@ void	print_d_specifier(t_parameters *info, va_list ap)
 	ptr = ft_itoa(va_arg(ap, int));
 	chartoprint = determine_char(info);
 	len = ft_strlen(ptr);
-	len = adjust_width_precision(len, ptr, info);
 	spacestoprint = determine_spaces(len, info, ptr);
 	i = 0;
 	if ((ptr[i] == '-') && (info->zero == TRUE) && (info->precision == MISSING))
