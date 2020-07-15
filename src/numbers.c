@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 08:03:06 by lmartins          #+#    #+#             */
-/*   Updated: 2020/07/15 08:30:37 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/15 09:27:17 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,6 @@ int		print_negative_signal(char *ptr, t_parameters *info, int i)
 
 int		adjust_width_precision(int len, char *ptr, t_parameters *info)
 {
-	if ((len > info->precision) && (info->precision != MISSING) && (*ptr != '0'))
-		info->width--;
-	(*ptr == '-') ? len-- : 0;
 	(*ptr == '-') ? info->width-- : 0;
 	return (len);
 }
@@ -41,7 +38,7 @@ void	print_d_specifier(t_parameters *info, va_list ap)
 	chartoprint = determine_char(info);
 	len = ft_strlen(ptr);
 	len = adjust_width_precision(len, ptr, info);
-	spacestoprint = determine_spaces(len, info);
+	spacestoprint = determine_spaces(len, info, ptr);
 	i = 0;
 	if ((ptr[i] == '-') && (info->zero == TRUE) && (info->precision == MISSING))
 		i = print_negative_signal(ptr, info, i);
@@ -67,7 +64,7 @@ void	print_u_specifier(t_parameters *info, va_list ap)
 	len = ft_strlen(ptr);
 	if ((len > info->precision) && (info->precision != MISSING))
 		info->width--;
-	spacestoprint = determine_spaces(len, info);
+	spacestoprint = determine_spaces(len, info, ptr);
 	justify_padding(spacestoprint, chartoprint, info, FALSE);
 	if ((info->precision > 0) && (info->precision >= len))
 		padding((info->precision - len), '0', info);
