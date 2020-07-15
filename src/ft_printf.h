@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 00:48:27 by lmartins          #+#    #+#             */
-/*   Updated: 2020/07/15 09:23:24 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/15 09:36:52 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,5 +102,6 @@ void			justify_padding(int spaces, char c, t_parameters *info,
 void			padding(int spaces, char c, t_parameters *info);
 char			determine_char(t_parameters *info);
 int				determine_spaces(int len, t_parameters *info, char *ptr);
+int				determine_spaces_hexa(int len, t_parameters *info);
 
 #endif
