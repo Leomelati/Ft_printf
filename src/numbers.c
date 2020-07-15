@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 08:03:06 by lmartins          #+#    #+#             */
-/*   Updated: 2020/07/15 08:07:28 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/15 08:24:43 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		print_negative_signal(char *ptr, t_parameters *info, int i)
 
 int		adjust_width_precision(int len, char *ptr, t_parameters *info)
 {
-	if ((len > info->precision) && (info->precision != MISSING))
+	if ((len > info->precision) && (info->precision != MISSING) && (*ptr != '0'))
 		info->width--;
 	(*ptr == '-') ? len-- : 0;
 	(*ptr == '-') ? info->width-- : 0;
