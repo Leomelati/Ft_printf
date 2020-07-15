@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 08:03:06 by lmartins          #+#    #+#             */
-/*   Updated: 2020/07/14 09:40:19 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/15 07:54:49 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,7 @@ void	print_d_specifier(t_parameters *info, va_list ap)
 		i = print_negative_signal(ptr, info, i);
 	if ((info->precision > 0) && (info->precision >= len))
 		padding((info->precision - len), '0', info);
-	while ((ptr[i] != '\0') && (info->precision != 0))
-	{
-		write(1, &ptr[i], 1);
-		info->result++;
-		i++;
-	}
+	(ptr[i] != '0') ? adapted_putstr_fd(&ptr[i], 1, info) : 0;
 	justify_padding(spacestoprint, chartoprint, info, TRUE);
 	free(ptr);
 }
@@ -77,13 +72,7 @@ void	print_u_specifier(t_parameters *info, va_list ap)
 	justify_padding(spacestoprint, chartoprint, info, FALSE);
 	if ((info->precision > 0) && (info->precision >= len))
 		padding((info->precision - len), '0', info);
-	i = 0;
-	while ((ptr[i] != '\0') && (info->precision != 0))
-	{
-		write(1, &ptr[i], 1);
-		info->result++;
-		i++;
-	}
+	(ptr[i] != '0') ? adapted_putstr_fd(&ptr[i], 1, info) : 0;
 	justify_padding(spacestoprint, chartoprint, info, TRUE);
 	free(ptr);
 }
