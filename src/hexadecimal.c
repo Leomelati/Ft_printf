@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 08:04:16 by lmartins          #+#    #+#             */
-/*   Updated: 2020/07/16 09:05:53 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/16 09:28:12 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	print_x_specifier(t_parameters *info, va_list ap)
 	int		spacestoprint;
 	char	chartoprint;
 
-	ptr = ft_itoa_uns_base((size_t)va_arg(ap, unsigned int), 16);
+	ptr = ft_itoa_base(va_arg(ap, unsigned int), 16);
 	chartoprint = determine_char(info);
 	len = ft_strlen(ptr) - ((*ptr == '-') ? 1 : 0);
 	if ((len > info->precision) && (info->precision != MISSING))
@@ -84,7 +84,7 @@ void	print_upper_x_specifier(t_parameters *info, va_list ap)
 	int		spacestoprint;
 	char	chartoprint;
 
-	ptr = ft_itoa_uns_base((size_t)va_arg(ap, unsigned int), 16);
+	ptr = ft_itoa_base(va_arg(ap, unsigned int), 16);
 	i = 0;
 	while (ptr[i])
 	{
