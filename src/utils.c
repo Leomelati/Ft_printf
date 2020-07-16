@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 08:45:21 by lmartins          #+#    #+#             */
-/*   Updated: 2020/07/16 09:49:06 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/16 09:50:59 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int		determine_spaces(int len, t_parameters *info, char *ptr)
 		spacestoprint -= len;
 		spacestoprint -= ((info->precision > 0) ? info->precision : 0);
 	}
-	((info->width > info->precision) && (info->width >= len) && (info->precision != MISSING)) ? spacestoprint++ : FALSE;
+	((info->width > info->precision) && (info->width >= len) && (info->precision > 0)) ? spacestoprint++ : FALSE;
 	if ((info->width > 0) && (info->precision == 0) && (*ptr == '0'))
 		spacestoprint++;
 	return (spacestoprint);
