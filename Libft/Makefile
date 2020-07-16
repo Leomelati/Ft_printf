@@ -6,7 +6,7 @@
 #    By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/24 10:59:55 by lmartins          #+#    #+#              #
-#    Updated: 2020/07/14 09:01:48 by lmartins         ###   ########.fr        #
+#    Updated: 2020/07/16 08:37:08 by lmartins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ ft_strmapi.c ft_strncmp.c ft_strnstr.c ft_strrchr.c ft_strtrim.c \
 ft_substr.c ft_tolower.c ft_toupper.c ft_lstadd_back.c ft_lstadd_front.c \
 ft_lstclear.c ft_lstdelone.c ft_lstiter.c ft_lstlast.c ft_lstmap.c \
 ft_lstnew.c ft_lstsize.c ft_putnbr_uns_fd.c ft_putnbr_hex.c \
-ft_putnbr_hex_lower.c ft_intlen.c ft_hexlen.c ft_itoa_uns.c ft_itoa_base.c
+ft_putnbr_hex_lower.c ft_intlen.c ft_hexlen.c ft_itoa_uns.c ft_itoa_base.c \
+ft_itoa_uns_base.c
 
 OBJ_DIR = obj/
 OBJ_FILES = $(FILES:.c=.o)

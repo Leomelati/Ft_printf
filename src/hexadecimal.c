@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 08:04:16 by lmartins          #+#    #+#             */
-/*   Updated: 2020/07/15 09:35:21 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/16 09:05:53 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,60 +48,69 @@ void	adapted_putnbr_hex(size_t nbr, t_parameters *info)
 
 void	print_x_specifier(t_parameters *info, va_list ap)
 {
-	unsigned int	ptr;
-	int				len;
-	int				spacestoprint;
-	char			chartoprint;
+	char	*ptr;
+	int		len;
+	int		spacestoprint;
+	char	chartoprint;
 
-	ptr = (size_t)va_arg(ap, unsigned int);
+	ptr = ft_itoa_uns_base((size_t)va_arg(ap, unsigned int), 16);
 	chartoprint = determine_char(info);
-	len = ft_hexlen(ptr) - ((ptr > 0) ? 1 : 0);
+	len = ft_strlen(ptr) - ((*ptr == '-') ? 1 : 0);
 	if ((len > info->precision) && (info->precision != MISSING))
 		info->width--;
 	spacestoprint = determine_spaces_hexa(len, info);
 	justify_padding(spacestoprint, chartoprint, info, FALSE);
 	if ((info->precision > 0) && (info->precision >= len))
-		padding((info->precision - len), '0', info);
+		padding((info->precision - len), '0', info, ptr);
 	if (info->precision != 0)
 	{
-		if (ptr == 0)
+		if (ptr[0] == '0')
 		{
 			write(1, "0", 1);
 			info->result++;
 		}
 		else
-			adapted_putnbr_hex_lower(ptr, info);
+			adapted_putstr_fd(ptr, 1, info);
 	}
 	justify_padding(spacestoprint, chartoprint, info, TRUE);
+	free(ptr);
 }
 
 void	print_upper_x_specifier(t_parameters *info, va_list ap)
 {
-	unsigned int	ptr;
-	int				len;
-	int				spacestoprint;
-	char			chartoprint;
+	char	*ptr;
+	int		i;
+	int		len;
+	int		spacestoprint;
+	char	chartoprint;
 
-	ptr = (size_t)va_arg(ap, unsigned int);
+	ptr = ft_itoa_uns_base((size_t)va_arg(ap, unsigned int), 16);
+	i = 0;
+	while (ptr[i])
+	{
+		ptr[i] = toupper((unsigned char)ptr[i]);
+		i++;
+	}
 	chartoprint = determine_char(info);
-	len = ft_hexlen(ptr) - ((ptr > 0) ? 1 : 0);
+	len = ft_strlen(ptr) - ((*ptr == '-') ? 1 : 0);
 	if ((len > info->precision) && (info->precision != MISSING))
 		info->width--;
 	spacestoprint = determine_spaces_hexa(len, info);
 	justify_padding(spacestoprint, chartoprint, info, FALSE);
 	if ((info->precision > 0) && (info->precision >= len))
-		padding((info->precision - len), '0', info);
+		padding((info->precision - len), '0', info, ptr);
 	if (info->precision != 0)
 	{
-		if (ptr == 0)
+		if (ptr[0] == '0')
 		{
 			write(1, "0", 1);
 			info->result++;
 		}
 		else
-			adapted_putnbr_hex(ptr, info);
+			adapted_putstr_fd(ptr, 1, info);
 	}
 	justify_padding(spacestoprint, chartoprint, info, TRUE);
+	free(ptr);
 }
 
 void	print_p_specifier(t_parameters *info, va_list ap)
@@ -124,7 +133,7 @@ void	print_p_specifier(t_parameters *info, va_list ap)
 		justify_padding(spacestoprint, '0', info, TRUE);
 		(len == 0 && *ptr == '0') ? 0 : adapted_putstr_fd(ptr, 1, info);
 	}
-	padding(info->width - (2 + len), chartoprint, info);
+	padding(info->width - (2 + len), chartoprint, info, ptr);
 	if (info->leftjustify == FALSE)
 	{
 		adapted_putstr_fd("0x", 1, info);
