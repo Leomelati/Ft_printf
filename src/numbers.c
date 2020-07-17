@@ -6,13 +6,13 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 08:03:06 by lmartins          #+#    #+#             */
-/*   Updated: 2020/07/17 07:12:23 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/17 07:24:48 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	check_negative(int len, t_parameters *info, char *ptr)
+void	print_int(int len, t_parameters *info, char *ptr)
 {
 	int		negative;
 
@@ -40,13 +40,13 @@ void	print_d_specifier(t_parameters *info, va_list ap)
 	len = (*ptr == '0' && info->precision == 0) ? 0 : ft_strlen(ptr);
 	(negative && info->precision>1) ? info->precision++ : 0;
 	spacestoprint = (info->precision > len) ? info->precision : len;
-	(info->leftjustify == TRUE) ? check_negative(len, info, ptr) : FALSE;
+	(info->leftjustify == TRUE) ? print_int(len, info, ptr) : FALSE;
 	if (chartoprint == '0' && negative && info->leftjustify == FALSE)
 		adapted_putchar_fd('-', 1, info);
 	else
 		negative = 0;
 	padding(info->width - spacestoprint, chartoprint, info);
-	(info->leftjustify == FALSE) ? check_negative(len, info, ptr + negative) : FALSE;
+	(info->leftjustify == FALSE) ? print_int(len, info, ptr + negative) : FALSE;
 	free(ptr);
 }
 

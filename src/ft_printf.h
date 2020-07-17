@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 00:48:27 by lmartins          #+#    #+#             */
-/*   Updated: 2020/07/17 06:35:23 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/17 07:25:14 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void			print_p_specifier(t_parameters *info, va_list ap);
 ** Numbers Functions
 */
 
-int				print_negative_signal(char *ptr, t_parameters *info, int i);
+void			print_int(int len, t_parameters *info, char *ptr);
 void			print_d_specifier(t_parameters *info, va_list ap);
 void			print_u_specifier(t_parameters *info, va_list ap);
 
