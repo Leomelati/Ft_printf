@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 08:04:16 by lmartins          #+#    #+#             */
-/*   Updated: 2020/07/17 07:25:48 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/17 07:52:45 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ void	print_x_specifier(t_parameters *info, va_list ap)
 	char	chartoprint;
 
 	ptr = ft_itoa_base(va_arg(ap, unsigned int), 16);
-	chartoprint = determine_char(info);
 	len = (*ptr == '0' && info->precision == 0) ? 0 : ft_strlen(ptr);
 	spacestoprint = (info->precision > len) ? info->precision : len;
+	chartoprint = determine_char(info);
 	(info->leftjustify == TRUE) ? print_int(len, info, ptr) : FALSE;
 	padding(info->width - spacestoprint, chartoprint, info);
 	(info->leftjustify == FALSE) ? print_int(len, info, ptr) : FALSE;
@@ -78,9 +78,9 @@ void	print_upper_x_specifier(t_parameters *info, va_list ap)
 		ptr[i] = toupper((unsigned char)ptr[i]);
 		i++;
 	}
-	chartoprint = determine_char(info);
 	len = (*ptr == '0' && info->precision == 0) ? 0 : ft_strlen(ptr);
 	spacestoprint = (info->precision > len) ? info->precision : len;
+	chartoprint = determine_char(info);
 	(info->leftjustify == TRUE) ? print_int(len, info, ptr) : FALSE;
 	padding(info->width - spacestoprint, chartoprint, info);
 	(info->leftjustify == FALSE) ? print_int(len, info, ptr) : FALSE;
@@ -97,10 +97,10 @@ void	print_p_specifier(t_parameters *info, va_list ap)
 
 	ptr = ft_itoa_base((size_t)va_arg(ap, void *), 16);
 	(info->precision >= 0 && info->zero == TRUE) ? info->zero = FALSE : 0;
-	chartoprint = (info->zero == TRUE) ? '0' : ' ';
 	len = (*ptr == '0' && info->precision == 0) ? 0 : ft_strlen(ptr);
 	spacestoprint = (info->precision > len) ? info->precision : len;
 	spacestoprint -= len;
+	chartoprint = (info->zero == TRUE) ? '0' : ' ';
 	if (info->leftjustify == TRUE)
 	{
 		adapted_putstr_fd("0x", 1, info);

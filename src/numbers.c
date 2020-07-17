@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 08:03:06 by lmartins          #+#    #+#             */
-/*   Updated: 2020/07/17 07:30:19 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/17 07:52:10 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ void	print_d_specifier(t_parameters *info, va_list ap)
 
 	ptr = ft_itoa(va_arg(ap, int));
 	negative = (*ptr == '-') ? TRUE : FALSE;
-	chartoprint = determine_char(info);
 	len = (*ptr == '0' && info->precision == 0) ? 0 : ft_strlen(ptr);
 	(negative && info->precision>1) ? info->precision++ : 0;
 	spacestoprint = (info->precision > len) ? info->precision : len;
+	chartoprint = determine_char(info);	
 	(info->leftjustify == TRUE) ? print_int(len, info, ptr) : FALSE;
 	if (chartoprint == '0' && negative && info->leftjustify == FALSE)
 		adapted_putchar_fd('-', 1, info);
@@ -58,9 +58,9 @@ void	print_u_specifier(t_parameters *info, va_list ap)
 	char	chartoprint;
 
 	ptr = ft_itoa_uns(va_arg(ap, unsigned int));
-	chartoprint = determine_char(info);
 	len = (*ptr == '0' && info->precision == 0) ? 0 : ft_strlen(ptr);
 	spacestoprint = (info->precision > len) ? info->precision : len;
+	chartoprint = determine_char(info);
 	(info->leftjustify == TRUE) ? print_int(len, info, ptr) : FALSE;
 	padding(info->width - spacestoprint, chartoprint, info);
 	(info->leftjustify == FALSE) ? print_int(len, info, ptr) : FALSE;
