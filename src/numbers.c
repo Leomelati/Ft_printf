@@ -6,42 +6,47 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 08:03:06 by lmartins          #+#    #+#             */
-/*   Updated: 2020/07/16 09:09:46 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/17 06:58:28 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		print_negative_signal(char *ptr, t_parameters *info, int i)
+void	check_negative(int len, t_parameters *info, char *ptr)
 {
-	write(1, "-", 1);
-	info->result++;
-	i++;
-	return (i);
+	int		negative;
+
+	negative = 0;
+	if (*ptr == '-')
+	{
+		negative = 1;
+		adapted_putchar_fd('-', 1, info);
+	}
+	padding(info->precision - len, '0', info);
+	((info->precision == 0) && (*ptr == '0')) ? 0 : adapted_putstr_fd(ptr + negative, 1, info);
 }
 
 void	print_d_specifier(t_parameters *info, va_list ap)
 {
 	char	*ptr;
-	int		i;
+	int		negative;
 	int		len;
 	int		spacestoprint;
 	char	chartoprint;
 
 	ptr = ft_itoa(va_arg(ap, int));
+	negative = (*ptr == '-') ? TRUE : FALSE;
 	chartoprint = determine_char(info);
-	len = ft_strlen(ptr);
-	spacestoprint = determine_spaces(len, info, ptr);
-	i = 0;
-	if ((ptr[i] == '-') && (info->zero == TRUE) && (info->precision == MISSING))
-		i = print_negative_signal(ptr, info, i);
-	justify_padding(spacestoprint, chartoprint, info, FALSE);
-	if ((ptr[i] == '-') && (info->precision != MISSING))
-		i = print_negative_signal(ptr, info, i);
-	if ((info->precision > 0) && (info->precision >= len))
-		padding((info->precision - len), '0', info, ptr);
-	(ptr[i] == '0' && info->precision == 0) ? 0 : adapted_putstr_fd(&ptr[i], 1, info);
-	justify_padding(spacestoprint, chartoprint, info, TRUE);
+	len = (*ptr == '0' && info->precision == 0) ? 0 : ft_strlen(ptr);
+	(negative && info->precision>1) ? info->precision++ : 0;
+	spacestoprint = (info->precision > len) ? info->precision : len;
+	(info->leftjustify == TRUE) ? check_negative(len, info, ptr) : FALSE;
+	if (chartoprint == '0' && negative)
+		adapted_putchar_fd('-', 1, info);
+	else
+		negative = 0;
+	padding(info->width - spacestoprint, chartoprint, info);
+	(info->leftjustify == FALSE) ? check_negative(len, info, ptr) : FALSE;
 	free(ptr);
 }
 
@@ -60,7 +65,7 @@ void	print_u_specifier(t_parameters *info, va_list ap)
 	spacestoprint = determine_spaces(len, info, ptr);
 	justify_padding(spacestoprint, chartoprint, info, FALSE);
 	if ((info->precision > 0) && (info->precision >= len))
-		padding((info->precision - len), '0', info, ptr);
+		padding((info->precision - len), '0', info);
 	(ptr[0] == '0' && info->precision == 0) ? 0 : adapted_putstr_fd(ptr, 1, info);
 	justify_padding(spacestoprint, chartoprint, info, TRUE);
 	free(ptr);

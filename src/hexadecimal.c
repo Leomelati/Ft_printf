@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 08:04:16 by lmartins          #+#    #+#             */
-/*   Updated: 2020/07/16 09:28:12 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/17 06:57:04 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	print_x_specifier(t_parameters *info, va_list ap)
 	spacestoprint = determine_spaces_hexa(len, info);
 	justify_padding(spacestoprint, chartoprint, info, FALSE);
 	if ((info->precision > 0) && (info->precision >= len))
-		padding((info->precision - len), '0', info, ptr);
+		padding((info->precision - len), '0', info);
 	if (info->precision != 0)
 	{
 		if (ptr[0] == '0')
@@ -98,7 +98,7 @@ void	print_upper_x_specifier(t_parameters *info, va_list ap)
 	spacestoprint = determine_spaces_hexa(len, info);
 	justify_padding(spacestoprint, chartoprint, info, FALSE);
 	if ((info->precision > 0) && (info->precision >= len))
-		padding((info->precision - len), '0', info, ptr);
+		padding((info->precision - len), '0', info);
 	if (info->precision != 0)
 	{
 		if (ptr[0] == '0')
@@ -133,7 +133,7 @@ void	print_p_specifier(t_parameters *info, va_list ap)
 		justify_padding(spacestoprint, '0', info, TRUE);
 		(len == 0 && *ptr == '0') ? 0 : adapted_putstr_fd(ptr, 1, info);
 	}
-	padding(info->width - (2 + len), chartoprint, info, ptr);
+	padding(info->width - (2 + len), chartoprint, info);
 	if (info->leftjustify == FALSE)
 	{
 		adapted_putstr_fd("0x", 1, info);

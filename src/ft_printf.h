@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 00:48:27 by lmartins          #+#    #+#             */
-/*   Updated: 2020/07/16 08:21:42 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/17 06:35:23 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void			print_percentage_specifier(t_parameters *info);
 
 void			justify_padding(int spaces, char c, t_parameters *info,
 					int option);
-void			padding(int spaces, char c, t_parameters *info, char *ptr);
+void			padding(int spaces, char c, t_parameters *info);
 char			determine_char(t_parameters *info);
 int				determine_spaces(int len, t_parameters *info, char *ptr);
 int				determine_spaces_hexa(int len, t_parameters *info);
