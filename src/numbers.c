@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 08:03:06 by lmartins          #+#    #+#             */
-/*   Updated: 2020/07/17 07:01:55 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/17 07:12:23 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	print_d_specifier(t_parameters *info, va_list ap)
 	(negative && info->precision>1) ? info->precision++ : 0;
 	spacestoprint = (info->precision > len) ? info->precision : len;
 	(info->leftjustify == TRUE) ? check_negative(len, info, ptr) : FALSE;
-	if (chartoprint == '0' && negative)
+	if (chartoprint == '0' && negative && info->leftjustify == FALSE)
 		adapted_putchar_fd('-', 1, info);
 	else
 		negative = 0;
