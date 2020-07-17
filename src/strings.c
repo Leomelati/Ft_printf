@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 08:01:34 by lmartins          #+#    #+#             */
-/*   Updated: 2020/07/14 09:13:17 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/17 08:37:42 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ void	adapted_putstr_fd(char *s, int fd, t_parameters *info)
 
 void	adapted_putchar_fd(char c, int fd, t_parameters *info)
 {
-	size_t	i;
-
 	if (!(c))
 		return ;
 	write(fd, &c, 1);
@@ -89,21 +87,16 @@ void	print_percentage_specifier(t_parameters *info)
 		i++;
 	if ((info->format[i] == '%') && (info->format[info->i] == '%'))
 	{
-		if ((info->zero == TRUE) && (info->leftjustify) == FALSE)
-			chartoprint = '0';
-		else
-			chartoprint = ' ';
-		if (1 >= info->width)
-			spacestoprint = 0;
-		else
-			spacestoprint = info->width - 1;
+		chartoprint = ((info->zero == TRUE) && (info->leftjustify) == FALSE) ?
+			'0' : ' ';
+		spacestoprint = (1 >= info->width) ? 0 : info->width - 1;
 		justify_padding(spacestoprint, chartoprint, info, FALSE);
 		write(1, "%%", 1);
 		info->result++;
 		justify_padding(spacestoprint, chartoprint, info, TRUE);
 	}
 	else
-	{	
+	{
 		write(1, "%%", 1);
 		info->result++;
 	}

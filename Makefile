@@ -6,7 +6,7 @@
 #    By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/24 10:59:55 by lmartins          #+#    #+#              #
-#    Updated: 2020/07/16 09:28:40 by lmartins         ###   ########.fr        #
+#    Updated: 2020/07/17 08:31:05 by lmartins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,20 +16,19 @@ Libft/ft_putnbr_fd.c Libft/ft_isdigit.c Libft/ft_putstr_fd.c \
 Libft/ft_putnbr_uns_fd.c Libft/ft_putnbr_hex.c Libft/ft_putchar_fd.c \
 Libft/ft_putnbr_hex_lower.c Libft/ft_strchr.c Libft/ft_strlen.c \
 Libft/ft_intlen.c Libft/ft_itoa.c Libft/ft_hexlen.c Libft/ft_itoa_uns.c \
-Libft/ft_itoa_base.c Libft/ft_isalpha.c
+Libft/ft_itoa_base.c Libft/ft_isalpha.c src/infos.c
 TEST_FLAGS = -g
 
 SRC_DIR = src/
 SRC_FILES = ft_printf.c hexadecimal.c numbers.c parameters.c strings.c \
-utils.c
+utils.c infos.c
 SRC = $(addprefix $(SRC_DIR), $(SRC_FILES))
 
 OBJ_DIR = src/obj/
 OBJ_FILES = $(SRC:.c=.o)
 OBJ = $(addprefix $(OBJ_DIR), $(notdir $(OBJ_FILES)))
 
-#CC = gcc -Wall -Wextra -Werror
-CC = gcc
+CC = gcc -Wall -Wextra -Werror
 
 NAME = libftprintf.a
 

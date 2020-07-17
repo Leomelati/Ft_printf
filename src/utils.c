@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 08:45:21 by lmartins          #+#    #+#             */
-/*   Updated: 2020/07/17 08:15:28 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/17 08:41:42 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,40 +45,21 @@ char	determine_char(t_parameters *info)
 	return (' ');
 }
 
-int		determine_spaces(int len, t_parameters *info, char *ptr)
+void	start_infos(t_parameters *info)
 {
-	int spacestoprint;
-
-	if ((len > info->width) && (info->width != FALSE))
-		spacestoprint = 0;
-	else if (info->precision == MISSING)
-		spacestoprint = info->width - len;
-	else
-	{
-		spacestoprint = info->width - len;
-		spacestoprint -= ((info->precision > 0) ? info->precision : 0);
-	}
-	((info->width > info->precision) && (info->width >= len) && (info->precision > 0)) ? spacestoprint++ : FALSE;
-	if ((info->width > 0) && (info->precision == 0) && (*ptr == '0'))
-		spacestoprint++;
-	return (spacestoprint);
+	info->zero = FALSE;
+	info->leftjustify = FALSE;
+	info->width = FALSE;
+	info->precision = MISSING;
+	info->specifier = FALSE;
+	info->result = FALSE;
 }
 
-int		determine_spaces_hexa(int len, t_parameters *info)
+void	restart_infos(t_parameters *info)
 {
-	int spacestoprint;
-
-	if (len > info->width)
-		spacestoprint = 0;
-	else if (info->precision == MISSING)
-		spacestoprint = info->width - len;
-	else
-	{
-		spacestoprint = info->width;
-		spacestoprint -= len;
-		spacestoprint -= ((info->precision > 0) ? info->precision : 0);
-	}
-	if ((info->width > 0) && (info->precision == 0))
-		spacestoprint++;
-	return (spacestoprint);
+	info->zero = FALSE;
+	info->leftjustify = FALSE;
+	info->width = FALSE;
+	info->precision = MISSING;
+	info->specifier = FALSE;
 }

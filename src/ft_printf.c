@@ -6,30 +6,11 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/16 23:37:09 by user42            #+#    #+#             */
-/*   Updated: 2020/07/16 08:21:44 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/17 08:29:51 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-void	start_infos(t_parameters *info)
-{
-	info->zero = FALSE;
-	info->leftjustify = FALSE;
-	info->width = FALSE;
-	info->precision = MISSING;
-	info->specifier = FALSE;
-	info->result = FALSE;
-}
-
-void	restart_infos(t_parameters *info)
-{
-	info->zero = FALSE;
-	info->leftjustify = FALSE;
-	info->width = FALSE;
-	info->precision = MISSING;
-	info->specifier = FALSE;
-}
 
 void	prepare_infos(t_parameters *info, va_list ap)
 {

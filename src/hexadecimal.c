@@ -6,45 +6,11 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 08:04:16 by lmartins          #+#    #+#             */
-/*   Updated: 2020/07/17 07:52:45 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/17 08:43:32 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-void	adapted_putnbr_hex_lower(size_t nbr, t_parameters *info)
-{
-	size_t	mod;
-
-	if (nbr > 0)
-	{
-		mod = nbr % 16;
-		if (mod < 10)
-			mod += '0';
-		else
-			mod += ('a' - 10);
-		adapted_putnbr_hex_lower(nbr / 16, info);
-		write(1, &mod, 1);
-		info->result++;
-	}
-}
-
-void	adapted_putnbr_hex(size_t nbr, t_parameters *info)
-{
-	size_t mod;
-
-	if (nbr > 0)
-	{
-		mod = nbr % 16;
-		if (mod < 10)
-			mod += '0';
-		else
-			mod += 55;
-		adapted_putnbr_hex(nbr / 16, info);
-		write(1, &mod, 1);
-		info->result++;
-	}
-}
 
 void	print_x_specifier(t_parameters *info, va_list ap)
 {
@@ -90,7 +56,6 @@ void	print_upper_x_specifier(t_parameters *info, va_list ap)
 void	print_p_specifier(t_parameters *info, va_list ap)
 {
 	char	*ptr;
-	int		i;
 	int		len;
 	int		spacestoprint;
 	char	chartoprint;
