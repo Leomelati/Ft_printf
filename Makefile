@@ -6,7 +6,7 @@
 #    By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/24 10:59:55 by lmartins          #+#    #+#              #
-#    Updated: 2020/07/17 08:31:05 by lmartins         ###   ########.fr        #
+#    Updated: 2020/07/17 08:46:27 by lmartins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ TEST_FLAGS = -g
 
 SRC_DIR = src/
 SRC_FILES = ft_printf.c hexadecimal.c numbers.c parameters.c strings.c \
-utils.c infos.c
+utils.c
 SRC = $(addprefix $(SRC_DIR), $(SRC_FILES))
 
 OBJ_DIR = src/obj/
