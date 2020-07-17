@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 08:03:06 by lmartins          #+#    #+#             */
-/*   Updated: 2020/07/17 07:24:48 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/17 07:30:19 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,10 @@ void	print_u_specifier(t_parameters *info, va_list ap)
 
 	ptr = ft_itoa_uns(va_arg(ap, unsigned int));
 	chartoprint = determine_char(info);
-	len = ft_strlen(ptr);
-	if ((len > info->precision) && (info->precision != MISSING))
-		info->width--;
-	spacestoprint = determine_spaces(len, info, ptr);
-	justify_padding(spacestoprint, chartoprint, info, FALSE);
-	if ((info->precision > 0) && (info->precision >= len))
-		padding((info->precision - len), '0', info);
-	(ptr[0] == '0' && info->precision == 0) ? 0 : adapted_putstr_fd(ptr, 1, info);
-	justify_padding(spacestoprint, chartoprint, info, TRUE);
+	len = (*ptr == '0' && info->precision == 0) ? 0 : ft_strlen(ptr);
+	spacestoprint = (info->precision > len) ? info->precision : len;
+	(info->leftjustify == TRUE) ? print_int(len, info, ptr) : FALSE;
+	padding(info->width - spacestoprint, chartoprint, info);
+	(info->leftjustify == FALSE) ? print_int(len, info, ptr) : FALSE;
 	free(ptr);
 }
