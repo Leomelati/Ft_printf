@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 08:45:21 by lmartins          #+#    #+#             */
-/*   Updated: 2020/07/17 06:32:30 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/17 07:47:49 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	padding(int spaces, char c, t_parameters *info)
 
 char	determine_char(t_parameters *info)
 {
-	if ((info->zero == TRUE) && (info->precision == MISSING))
+	if ((info->zero == TRUE) && (info->precision > MISSING))
 		return ('0');
 	return (' ');
 }
