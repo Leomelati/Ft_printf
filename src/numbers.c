@@ -6,7 +6,7 @@
 /*   By: lmartins <lmartins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 08:03:06 by lmartins          #+#    #+#             */
-/*   Updated: 2020/07/17 06:58:28 by lmartins         ###   ########.fr       */
+/*   Updated: 2020/07/17 07:01:55 by lmartins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	print_d_specifier(t_parameters *info, va_list ap)
 	else
 		negative = 0;
 	padding(info->width - spacestoprint, chartoprint, info);
-	(info->leftjustify == FALSE) ? check_negative(len, info, ptr) : FALSE;
+	(info->leftjustify == FALSE) ? check_negative(len, info, ptr + negative) : FALSE;
 	free(ptr);
 }
 
